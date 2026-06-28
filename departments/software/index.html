@@ -379,10 +379,17 @@ body {
   font-size: 22px;
 }
 .game-grid .gb-desc {
-  font-size: 29px; color: #2A5A6A;
+  font-size: 29px; color: #0F4464; font-weight: 700;
   margin-bottom: 6px; line-height: 1.3;
 }
 .game-grid.four-block .gb-desc {
+  font-size: 30px;
+}
+.game-grid .gb-intro {
+  font-size: 29px; color: #2A5A6A; line-height: 1.3;
+  margin-bottom: 6px; flex-shrink: 0;
+}
+.game-grid.four-block .gb-intro {
   font-size: 30px;
 }
 .game-grid .gb-date {
@@ -597,6 +604,8 @@ a.game-block:hover::after {
   .game-grid.four-block .gb-author { font-size: 18px; }
   .game-grid .gb-desc { font-size: 16px; margin-bottom: 2px; }
   .game-grid.four-block .gb-desc { font-size: 22px; }
+  .game-grid .gb-intro { font-size: 16px; margin-bottom: 2px; }
+  .game-grid.four-block .gb-intro { font-size: 22px; }
   .game-grid .gb-date { font-size: 14px; padding-bottom: 1px; }
   .game-grid.four-block .gb-date { font-size: 18px; }
   .game-grid .gb-tags { margin-top: 8px; gap: 4px; }
@@ -731,14 +740,16 @@ a.game-block:hover::after {
         <div class="gb-name">Dotective</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">侦探解谜</div>
+        <div class="gb-intro">在 GameJam 中获得萌芽奖。玩家扮演侦探，通过贴出线索点，一步步推理出案件的真相。</div>
         <div class="gb-date">2026.02</div>
-        <div class="gb-tags"><span>Unity3D</span><span>解谜</span></div>
+        <div class="gb-tags"><span>Unity3D</span><span>解谜</span><span>GameJam</span></div>
       </a>
       <a href="https://www.gcores.com/games/180051" target="_blank" class="game-block">
         <div class="gb-num">02</div>
         <div class="gb-name">视限回廊</div>
         <div class="gb-author">刘宁宇、孙浩然等6人</div>
         <div class="gb-desc">潜行解谜</div>
+        <div class="gb-intro">6 个程序合作完成的潜行解谜作品。核心机制是「视线」——玩家的视野值决定了一切，你可以选择潜行，也可以选择拿枪决一死战。</div>
         <div class="gb-date">2026.04 — 2026.05</div>
         <div class="gb-tags"><span>Unity</span><span>潜行</span><span>GameJam</span></div>
       </a>
@@ -747,6 +758,7 @@ a.game-block:hover::after {
         <div class="gb-name">Car</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">3D 跑酷</div>
+        <div class="gb-intro">基于 Perlin Noise 算法程序化生成地形的 3D 跑酷游戏。驾驶小车在随机生成、起伏不定的道路上飞驰，每次体验都独一无二。</div>
         <div class="gb-date">2025.12</div>
         <div class="gb-tags"><span>Unity3D</span><span>Perlin Noise</span></div>
       </a>
@@ -755,6 +767,7 @@ a.game-block:hover::after {
         <div class="gb-name">TraeDemo</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">类吸血鬼幸存者</div>
+        <div class="gb-intro">2 小时限时开发挑战的产物。全程借助 AI 辅助编码，在极短时间内完成了一款类《吸血鬼幸存者》的割草小品，验证了 AI 写游戏的工作流可行性。</div>
         <div class="gb-date">2026.04</div>
         <div class="gb-tags"><span>Unity</span><span>AI 辅助</span><span>限时开发</span></div>
       </a>
@@ -763,6 +776,7 @@ a.game-block:hover::after {
         <div class="gb-name">点到为止</div>
         <div class="gb-author">欧阳宸诚、孙浩然、周可卿</div>
         <div class="gb-desc">解谜</div>
+        <div class="gb-intro">解谜小品，核心是考验玩家对骰子的精准把控。每道谜题都只有一个刚刚好的解法，不多不少，点到为止。</div>
         <div class="gb-date">2026.02</div>
         <div class="gb-tags"><span>Unity</span><span>解谜</span><span>GameJam</span></div>
       </div>
@@ -771,6 +785,7 @@ a.game-block:hover::after {
         <div class="gb-name">fade2d</div>
         <div class="gb-author">孙浩然</div>
         <div class="gb-desc">平台跳跃</div>
+        <div class="gb-intro">2D 平台跳跃练手之作。在朴素的像素风格下追求流畅的操作体验。</div>
         <div class="gb-date">2026.10 — 2026.12</div>
         <div class="gb-tags"><span>Unity</span><span>平台跳跃</span></div>
       </div>
@@ -779,6 +794,7 @@ a.game-block:hover::after {
         <div class="gb-name">艾尔登法环</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">游戏复刻</div>
+        <div class="gb-intro">用 Unity3D 复刻《Elden Ring》部分核心机制的粉丝重制项目，包含战斗系统、自研动画系统、移动机制和基础 AI，向法环致敬。</div>
         <div class="gb-date">2025.06 — 2025.09</div>
         <div class="gb-tags"><span>Unity3D</span><span>重制</span></div>
       </a>
@@ -787,6 +803,7 @@ a.game-block:hover::after {
         <div class="gb-name">OpenGL 渲染器</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">渲染管线</div>
+        <div class="gb-intro">从零手写的 OpenGL 渲染管线，涵盖顶点着色器、片段着色器、纹理映射与基础光照模型，深入理解图形学原理。</div>
         <div class="gb-date">2026.03</div>
         <div class="gb-tags"><span>C++</span><span>OpenGL</span><span>图形学</span></div>
       </a>
