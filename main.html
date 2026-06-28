@@ -846,6 +846,80 @@ body {
   .ef-prev { left: -17px; } .ef-next { right: -17px; }
   .ef-strip .ef-slide { padding: 6px; }
 }
+
+/* ---- DAILY SHUFFLE WALL (2×2 random display) ---- */
+.daily-shuffle-wall {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1140px;
+  margin: 0 auto;
+  min-height: 400px;
+}
+.daily-shuffle-wall .ed-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #0F4464;
+  background: #E8EDF2;
+  height: 380px;
+  min-height: 380px;
+  padding: 6px;
+  overflow: hidden;
+}
+.daily-shuffle-wall .ed-cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.daily-shuffle-wall .ed-cell img:hover {
+  transform: scale(1.05);
+}
+.daily-shuffle-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: 5px solid #0F4464;
+  background: #FFFFFF;
+  color: #0F4464;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  transform: rotate(-0.3deg);
+  grid-column: 1 / -1;
+}
+.daily-shuffle-btn:hover {
+  background: #0F4464;
+  color: #FFFFFF;
+  transform: rotate(0deg);
+}
+.daily-shuffle-btn .ds-progress {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  opacity: 0.5;
+}
+.daily-shuffle-btn:hover .ds-progress { opacity: 0.7; }
+
+/* ---- DAILY SHUFFLE: responsive ---- */
+@media (max-width: 750px) {
+  .daily-shuffle-wall { gap: 8px; max-width: 100%; min-height: 300px; }
+  .daily-shuffle-wall .ed-cell { height: 240px; min-height: 240px; padding: 4px; }
+  .daily-shuffle-btn { padding: 10px; font-size: 16px; }
+  .daily-shuffle-btn .ds-progress { font-size: 12px; }
+}
+@media (max-height: 900px) {
+  .daily-shuffle-wall { min-height: 320px; }
+  .daily-shuffle-wall .ed-cell { height: 280px; min-height: 280px; }
+}
 </style>
 </head>
 <body>
@@ -1038,15 +1112,7 @@ body {
     <div class="ed-label">📸 科协日常</div>
     <p>除了大型活动，科协的日常也充满乐趣与温暖。一起学习、一起干饭、一起成长。</p>
   </div>
-  <div class="ed-wall">
-    <div class="ed-cell wide" style="transform:rotate(-0.6deg)"><img src="photos/daily/日常1.jpg" alt="日常"></div>
-    <div class="ed-cell tall" style="transform:rotate(0.8deg)"><img src="photos/daily/2bdeb77aaa81e283e25a8b88bf997507.jpg" alt="日常2"></div>
-    <div class="ed-cell" style="transform:rotate(-0.3deg)"><img src="photos/daily/3896c5d9a46564d8a45df932da41fe43.jpg" alt="日常3"></div>
-    <div class="ed-cell" style="transform:rotate(0.5deg)"><img src="photos/daily/76adb2d29adb25fa19426e4cb9697b19.jpg" alt="日常4"></div>
-    <div class="ed-cell wide" style="transform:rotate(-0.9deg)"><img src="photos/daily/7e054e50bbc75e92dbef010027670c37.jpg" alt="日常5"></div>
-    <div class="ed-cell" style="transform:rotate(0.4deg)"><img src="photos/daily/ab2871885db61bccc270fc5d2f79f8bb.jpg" alt="日常6"></div>
-    <div class="ed-cell" style="transform:rotate(-0.7deg)"><img src="photos/daily/cd91dd3af4a9ed6d99cf03ef3143bb3d.jpg" alt="日常7"></div>
-  </div>
+  <div class="ed-wall daily-shuffle-wall" id="daily-wall"></div>
   <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
 </section>
 
@@ -1321,7 +1387,7 @@ updateActive(0);
   };
 
   // Build flip viewers from each .ed-wall
-  const walls = document.querySelectorAll('.event-detail .ed-wall');
+  const walls = document.querySelectorAll('.event-detail .ed-wall:not(.daily-shuffle-wall)');
   const rotations = ['ef-r1','ef-r2','ef-r3'];
 
   walls.forEach(function(wall, wi) {
@@ -1470,6 +1536,115 @@ const voiceQuotes = [
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') overlay.classList.remove('active');
   });
+})();
+</script>
+
+<!-- Daily shuffle wall: 2x2 random display without repeats -->
+<script>
+(function(){
+  var wall = document.getElementById('daily-wall');
+  if (!wall) return;
+
+  var allImages = [
+    { src: 'photos/daily/日常1.jpg', alt: '日常1', rot: '-0.6deg', cls: 'wide' },
+    { src: 'photos/daily/2bdeb77aaa81e283e25a8b88bf997507.jpg', alt: '日常2', rot: '0.8deg', cls: 'tall' },
+    { src: 'photos/daily/3896c5d9a46564d8a45df932da41fe43.jpg', alt: '日常3', rot: '-0.3deg', cls: '' },
+    { src: 'photos/daily/76adb2d29adb25fa19426e4cb9697b19.jpg', alt: '日常4', rot: '0.5deg', cls: '' },
+    { src: 'photos/daily/7e054e50bbc75e92dbef010027670c37.jpg', alt: '日常5', rot: '-0.9deg', cls: 'wide' },
+    { src: 'photos/daily/ab2871885db61bccc270fc5d2f79f8bb.jpg', alt: '日常6', rot: '0.4deg', cls: '' },
+    { src: 'photos/daily/cd91dd3af4a9ed6d99cf03ef3143bb3d.jpg', alt: '日常7', rot: '-0.7deg', cls: '' },
+    { src: 'photos/daily/14ca7fdaec8c8db003054b25e97909ef.jpg', alt: '日常8', rot: '0.3deg', cls: 'wide' },
+    { src: 'photos/daily/16a11c3310669843fd9eca44c780da33.jpg', alt: '日常9', rot: '-0.4deg', cls: 'tall' },
+    { src: 'photos/daily/216943959d35e21524e25c5e53274ae2.jpg', alt: '日常10', rot: '0.6deg', cls: '' },
+    { src: 'photos/daily/2c63b9a0e5a0d8e13298563ed51b0cd1.jpg', alt: '日常11', rot: '-0.8deg', cls: 'wide' },
+    { src: 'photos/daily/2ce72ca28b0967472d46de09f70296cf.jpg', alt: '日常12', rot: '0.5deg', cls: 'tall' },
+    { src: 'photos/daily/3f7cca3bf62fe6cefbe9e67f4c6c2da7.jpg', alt: '日常13', rot: '-0.2deg', cls: '' },
+    { src: 'photos/daily/6eab08d251a15c68f5451f760c66c425.jpg', alt: '日常14', rot: '0.7deg', cls: 'wide' },
+    { src: 'photos/daily/80f52c0afb5741d8346a6762b7208705.jpg', alt: '日常15', rot: '-0.6deg', cls: '' },
+    { src: 'photos/daily/b9550f54ceccb9fbb1c04b9fc5869720.jpg', alt: '日常16', rot: '0.3deg', cls: 'tall' },
+    { src: 'photos/daily/e7ddbaee07ababedff846570ec56277e.jpg', alt: '日常17', rot: '-0.5deg', cls: 'wide' },
+    { src: 'photos/daily/eb526dc667c6069cd523ada0fcc7f656.jpg', alt: '日常18', rot: '0.4deg', cls: '' }
+  ];
+
+  var shownIndices = [];
+  var cells = [];
+  var btn;
+
+  function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function pickNext(count) {
+    var allIndices = allImages.map(function(_, i) { return i; });
+    var remaining = allIndices.filter(function(i) {
+      return shownIndices.indexOf(i) === -1;
+    });
+    if (remaining.length < count) {
+      shownIndices = [];
+      return shuffle(allIndices).slice(0, count);
+    }
+    shuffle(remaining);
+    var picked = remaining.slice(0, count);
+    shownIndices = shownIndices.concat(picked);
+    return picked;
+  }
+
+  var lbImgsDaily = allImages.map(function(img) {
+    return { src: img.src, alt: img.alt };
+  });
+
+  // Init persistent DOM: 3 cells + button, never cleared
+  function init() {
+    for (var i = 0; i < 3; i++) {
+      var cell = document.createElement('div');
+      cell.className = 'ed-cell';
+      var imgEl = document.createElement('img');
+      imgEl.loading = 'lazy';
+      cell.appendChild(imgEl);
+      wall.appendChild(cell);
+      cells.push(cell);
+    }
+    // One-time button
+    btn = document.createElement('button');
+    btn.className = 'daily-shuffle-btn';
+    btn.addEventListener('click', function() {
+      render(pickNext(3));
+    });
+    wall.appendChild(btn);
+  }
+
+  function render(pickedIndices) {
+    // Just swap src/alt/transform/class on the 3 persistent cells
+    pickedIndices.forEach(function(idx, i) {
+      var imgData = allImages[idx];
+      var cell = cells[i];
+      var imgEl = cell.querySelector('img');
+
+      cell.style.transform = 'rotate(' + imgData.rot + ')';
+      cell.className = 'ed-cell' + (imgData.cls ? ' ' + imgData.cls : '');
+      imgEl.src = imgData.src;
+      imgEl.alt = imgData.alt;
+      imgEl.onclick = function(e) {
+        e.stopPropagation();
+        if (typeof openLB === 'function') openLB(idx, lbImgsDaily);
+      };
+    });
+
+    // Update progress text on button (keep the button intact)
+    var total = allImages.length;
+    var remaining = total - shownIndices.length;
+    var sub = remaining <= 0
+      ? '已看完所有 ' + total + ' 张，重新开始'
+      : '剩余 ' + remaining + ' / ' + total + ' 张未看';
+    btn.innerHTML = '⟳ 换一批<span class="ds-progress">' + sub + '</span>';
+  }
+
+  init();
+  render(pickNext(3));
 })();
 </script>
 </body>
