@@ -26,7 +26,7 @@
 html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
 
 body {
-  font-family: 'Maple', 'Courier New', monospace;
+  font-family: 'Maple', 'Microsoft YaHei', 'PingFang SC', 'Courier New', monospace;
   background: #F4F2EE;
   color: #0F4464;
   line-height: 1.35;
@@ -195,6 +195,58 @@ body {
   font-size: 18px; color: #6A8A9A; line-height: 1.55;
   flex: 1;
 }
+
+/* ---- TECH STACK ICONS (Unity, C#, Git, VSC, Blender) ---- */
+.dir-tech-stack {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tech-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  cursor: default;
+  animation: techFloat 3s ease-in-out infinite;
+  transition: color 0.3s, transform 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+.tech-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: currentColor;
+}
+.tech-icon[data-brand="unity"] { color: #222C37; }
+.tech-icon[data-brand="csharp"] { color: #9B4993; }
+.tech-icon[data-brand="git"]   { color: #F05033; }
+.tech-icon[data-brand="vscode"] { color: #007ACC; }
+.tech-icon[data-brand="blender"] { color: #EA7600; }
+.tech-icon[data-brand="rider"]   { color: #DD1265; }
+.tech-icon[data-brand="opengl"]  { color: #5586A4; }
+.tech-icon[data-brand="godot"]   { color: #478CBF; }
+.tech-icon[data-brand="unreal"]  { color: #313131; }
+.tech-icon:nth-child(2) { animation-delay: 0.35s; }
+.tech-icon:nth-child(3) { animation-delay: 0.7s; }
+.tech-icon:nth-child(4) { animation-delay: 1.05s; }
+.tech-icon:nth-child(5) { animation-delay: 1.4s; }
+.tech-icon:nth-child(6) { animation-delay: 1.75s; }
+.tech-icon:nth-child(7) { animation-delay: 2.1s; }
+.tech-icon:nth-child(8) { animation-delay: 2.45s; }
+.tech-icon:nth-child(9) { animation-delay: 2.8s; }
+.tech-icon:hover {
+  animation-play-state: paused;
+  transform: scale(1.3) rotate(-8deg);
+}
+@keyframes techFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.dir-card:hover .tech-icon { color: #fff; }
+
 .dir-grid .dir-card .dir-count {
   margin-top: auto; padding-top: 16px;
   font-size: 16px; font-weight: 700;
@@ -263,9 +315,9 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 13px;
   align-content: stretch;
-  padding: 2px 0;
+  padding: 6px 0;
 }
 .game-grid.four-block {
   grid-template-columns: repeat(2, 1fr);
@@ -274,11 +326,12 @@ body {
 .game-grid .game-block {
   border: 5px solid rgba(15,68,100,0.22);
   background: #FFFFFF;
-  padding: 24px 22px 18px;
+  padding: 32px 30px 24px;
   display: flex; flex-direction: column;
   position: relative;
   transition: border-color 0.2s, box-shadow 0.2s;
   overflow: hidden;
+  text-decoration: none; color: inherit;
 }
 .game-grid.four-block .game-block {
   padding: 36px 32px 30px;
@@ -305,52 +358,52 @@ body {
 .game-grid .game-block:nth-child(7) { transform: rotate(-0.2deg); }
 .game-grid .game-block:nth-child(8) { transform: rotate(0.4deg); }
 .game-grid .gb-num {
-  font-size: 18px; font-weight: 700; color: #9AB0BE;
-  letter-spacing: 2px; margin-bottom: 4px;
+  font-size: 24px; font-weight: 700; color: #9AB0BE;
+  letter-spacing: 2px; margin-bottom: 6px;
 }
 .game-grid.four-block .gb-num {
   font-size: 24px; margin-bottom: 8px;
 }
 .game-grid .gb-name {
-  font-size: clamp(28px, 3.5vw, 44px);
-  font-weight: 700; line-height: 1.15; margin-bottom: 4px;
+  font-size: clamp(38px, 4.725vw, 59px);
+  font-weight: 700; line-height: 1.15; margin-bottom: 6px;
 }
 .game-grid.four-block .gb-name {
   font-size: clamp(36px, 4.5vw, 56px);
   margin-bottom: 8px;
 }
 .game-grid .gb-author {
-  font-size: 18px; color: #6A8A9A; font-weight: 700;
+  font-size: 24px; color: #6A8A9A; font-weight: 700;
 }
 .game-grid.four-block .gb-author {
   font-size: 22px;
 }
 .game-grid .gb-desc {
-  font-size: 21px; color: #2A5A6A;
-  margin-bottom: 4px; line-height: 1.3;
+  font-size: 29px; color: #2A5A6A;
+  margin-bottom: 6px; line-height: 1.3;
 }
 .game-grid.four-block .gb-desc {
   font-size: 30px;
 }
 .game-grid .gb-date {
-  font-size: 18px; color: #4A7A8A;
+  font-size: 24px; color: #4A7A8A;
   letter-spacing: 1px;
   flex: 1; display: flex; align-items: flex-end;
-  padding-bottom: 2px;
+  padding-bottom: 4px;
 }
 .game-grid.four-block .gb-date {
   font-size: 24px;
 }
 .game-grid .gb-tags {
-  display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px;
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
 }
 .game-grid.four-block .gb-tags {
   gap: 8px; margin-top: 16px;
 }
 .game-grid .gb-tags span {
-  padding: 6px 18px;
+  padding: 8px 24px;
   border: 3px solid rgba(15,68,100,0.15);
-  font-size: 16px; line-height: 1.3;
+  font-size: 22px; line-height: 1.3;
 }
 .game-grid.four-block .gb-tags span {
   padding: 10px 26px;
@@ -368,6 +421,21 @@ body {
 .game-grid .game-block.ghost:hover {
   box-shadow: none;
   border-color: rgba(15,68,100,0.22);
+}
+a.game-block::after {
+  content: "↗";
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  font-size: 24px;
+  color: #0F4464;
+  opacity: 0.25;
+  transition: opacity 0.2s, transform 0.2s;
+  line-height: 1;
+}
+a.game-block:hover::after {
+  opacity: 0.7;
+  transform: translate(4px, -4px);
 }
 
 /* ---- CTA LINK ---- */
@@ -400,6 +468,9 @@ body {
   align-content: center;
 }
 .member-grid .member-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   border: 5px solid #0F4464;
   background: #FFFFFF;
   padding: 20px;
@@ -412,23 +483,28 @@ body {
 .member-grid .member-card:nth-child(4) { transform: rotate(1deg); }
 .member-grid .member-card:nth-child(5) { transform: rotate(-0.6deg); }
 .member-grid .member-card:nth-child(6) { transform: rotate(0.3deg); }
+.member-grid .member-card:nth-child(8) { transform: rotate(-0.2deg); }
 .member-grid .member-card:hover {
   background: #0F4464; color: #FFFFFF;
   transform: rotate(0deg) scale(1.03);
   z-index: 5;
 }
 .member-grid .member-card .avatar {
-  width: 52px; height: 52px;
+  width: 68px; height: 68px;
   border: 3px solid #0F4464;
   display: flex; align-items: center; justify-content: center;
-  font-size: 22px; margin: 0 auto 8px;
+  font-size: 22px; margin: 0 auto 10px; overflow: hidden;
+}
+.member-grid .member-card .avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
 }
 .member-grid .member-card:hover .avatar {
   border-color: rgba(255,255,255,0.4);
   background: rgba(255,255,255,0.1);
 }
-.member-grid .member-card .name { font-size: 16px; font-weight: 700; }
-.member-grid .member-card .role { font-size: 13px; color: #6A8A9A; margin-top: 2px; }
+.member-grid .member-card .name { font-size: 18px; font-weight: 700; }
+.member-grid .member-card .role { font-size: 14px; color: #0F4464; margin-top: 4px; }
 .member-grid .member-card:hover .role { color: rgba(255,255,255,0.6); }
 
 /* ---- CLOSING DEPT NAV ---- */
@@ -564,7 +640,36 @@ body {
     </a>
     <a href="#game" class="dir-card">
       <div class="dir-name">游戏开发</div>
-      <div class="dir-desc">Unity / Godot 引擎双线并行，Game Jam 参赛主力。从 2D 平台跳跃到 3D Roguelike，6 款作品各具特色。</div>
+      <div class="dir-tech-stack">
+        <span class="tech-icon" data-brand="unity" title="Unity">
+          <svg viewBox="0 0 24 24"><path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="csharp" title="C#">
+          <svg viewBox="0 0 24 24"><path d="M1.194 7.543v8.913c0 1.103.588 2.122 1.544 2.674l7.718 4.456a3.086 3.086 0 0 0 3.088 0l7.718-4.456a3.087 3.087 0 0 0 1.544-2.674V7.543a3.084 3.084 0 0 0-1.544-2.673L13.544.414a3.086 3.086 0 0 0-3.088 0L2.738 4.87a3.085 3.085 0 0 0-1.544 2.673Zm5.403 2.914v3.087a.77.77 0 0 0 .772.772.773.773 0 0 0 .772-.772.773.773 0 0 1 1.317-.546.775.775 0 0 1 .226.546 2.314 2.314 0 1 1-4.631 0v-3.087c0-.615.244-1.203.679-1.637a2.312 2.312 0 0 1 3.274 0c.434.434.678 1.023.678 1.637a.769.769 0 0 1-.226.545.767.767 0 0 1-1.091 0 .77.77 0 0 1-.226-.545.77.77 0 0 0-.772-.772.771.771 0 0 0-.772.772Zm12.35 3.087a.77.77 0 0 1-.772.772h-.772v.772a.773.773 0 0 1-1.544 0v-.772h-1.544v.772a.773.773 0 0 1-1.317.546.775.775 0 0 1-.226-.546v-.772H12a.771.771 0 1 1 0-1.544h.772v-1.543H12a.77.77 0 1 1 0-1.544h.772v-.772a.773.773 0 0 1 1.317-.546.775.775 0 0 1 .226.546v.772h1.544v-.772a.773.773 0 0 1 1.544 0v.772h.772a.772.772 0 0 1 0 1.544h-.772v1.543h.772a.776.776 0 0 1 .772.772Zm-3.088-2.315h-1.544v1.543h1.544v-1.543Z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="git" title="Git">
+          <svg viewBox="0 0 24 24"><path d="M13.09 23.549a1.54 1.54 0 0 1-2.18 0L.451 13.089a1.54 1.54 0 0 1 0-2.179l7.191-7.19 2.733 2.733a1.85 1.85 0 0 0 .964 2.326v6.66a1.849 1.849 0 1 0 1.54 0V8.957l2.508 2.508a1.85 1.85 0 1 0 1.09-1.09l-2.634-2.634a1.85 1.85 0 0 0-2.378-2.377L8.73 2.63 10.91.451a1.54 1.54 0 0 1 2.179 0l10.459 10.46a1.54 1.54 0 0 1 0 2.179z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="vscode" title="VS Code">
+          <svg viewBox="0 0 24 24"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="blender" title="Blender">
+          <svg viewBox="0 0 24 24"><path d="M12.51 13.214c.046-.8.438-1.506 1.03-2.006a3.424 3.424 0 0 1 2.212-.79c.85 0 1.631.3 2.211.79.592.5.983 1.206 1.028 2.005.045.823-.285 1.586-.865 2.153a3.389 3.389 0 0 1-2.374.938 3.393 3.393 0 0 1-2.376-.938c-.58-.567-.91-1.33-.865-2.152M7.35 14.831c.006.314.106.922.256 1.398a7.372 7.372 0 0 0 1.593 2.757 8.227 8.227 0 0 0 2.787 2.001 8.947 8.947 0 0 0 3.66.76 8.964 8.964 0 0 0 3.657-.772 8.285 8.285 0 0 0 2.785-2.01 7.428 7.428 0 0 0 1.592-2.762 6.964 6.964 0 0 0 .25-3.074 7.123 7.123 0 0 0-1.016-2.779 7.764 7.764 0 0 0-1.852-2.043h.002L13.566 2.55l-.02-.015c-.492-.378-1.319-.376-1.86.002-.547.382-.609 1.015-.123 1.415l-.001.001 3.126 2.543-9.53.01h-.013c-.788.001-1.545.518-1.695 1.172-.154.665.38 1.217 1.2 1.22V8.9l4.83-.01-8.62 6.617-.034.025c-.813.622-1.075 1.658-.563 2.313.52.667 1.625.668 2.447.004L7.414 14s-.069.52-.063.831zm12.09 1.741c-.97.988-2.326 1.548-3.795 1.55-1.47.004-2.827-.552-3.797-1.538a4.51 4.51 0 0 1-1.036-1.622 4.282 4.282 0 0 1 .282-3.519 4.702 4.702 0 0 1 1.153-1.371c.942-.768 2.141-1.183 3.396-1.185 1.256-.002 2.455.41 3.398 1.175.48.391.87.854 1.152 1.367a4.28 4.28 0 0 1 .522 1.706 4.236 4.236 0 0 1-.239 1.811 4.54 4.54 0 0 1-1.035 1.626"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="rider" title="Rider">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0v24h24V0zm7.031 3.113A4.063 4.063 0 0 1 9.72 4.14a3.23 3.23 0 0 1 .84 2.28A3.16 3.16 0 0 1 8.4 9.54l2.46 3.6H8.28L6.12 9.9H4.38v3.24H2.16V3.12c1.61-.004 3.281.009 4.871-.007zm5.509.007h3.96c3.18 0 5.34 2.16 5.34 5.04 0 2.82-2.16 5.04-5.34 5.04h-3.96zm4.069 1.976c-.607.01-1.235.004-1.849.004v6.06h1.74a2.882 2.882 0 0 0 3.06-3 2.897 2.897 0 0 0-2.951-3.064zM4.319 5.1v2.88H6.6c1.08 0 1.68-.6 1.68-1.44 0-.96-.66-1.44-1.74-1.44zM2.16 19.5h9V21h-9Z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="opengl" title="OpenGL">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.607 13.88c1.32 1.197 3.862 2.008 6.781 2.008 2.375 0 4.503-.481 5.923-1.325-1.555 1.413-4.328 2.41-7.495 2.41C3.947 16.972 0 14.745 0 11.999c0-2.747 3.948-4.973 8.818-4.972 3.179.001 5.96 1.001 7.511 2.425-1.421-.85-3.558-1.34-5.941-1.34-2.828 0-5.303.761-6.655 1.897.01-.004.019-.008.028-.013.253-.119.548-.179.885-.179.336 0 .631.06.885.179.253.12.465.28.635.48.171.201.298.431.383.691.086.26.128.531.128.812 0 .282-.042.553-.128.813-.085.26-.212.49-.383.691-.17.2-.382.359-.635.477-.254.117-.549.176-.885.176-.337 0-.632-.059-.885-.176a2.2 2.2 0 0 1-.154-.08m-.347-1.283c.056.203.143.385.262.547s.271.292.458.391q.279.147.666.147t.666-.147c.186-.099.339-.229.458-.391s.206-.344.261-.547a2.3 2.3 0 0 0 0-1.232c-.055-.203-.142-.385-.261-.547s-.272-.293-.458-.391-.408-.148-.666-.148-.48.05-.666.148c-.187.099-.339.229-.458.391s-.206.344-.262.547c-.055.202-.083.407-.083.616 0 .208.028.414.083.616m4.254-1.183v.356h.009c.073-.146.187-.252.344-.318.156-.066.328-.099.515-.099.208 0 .39.037.544.112.155.074.283.175.385.302.103.128.18.274.232.441.052.166.078.342.078.529s-.025.363-.075.529c-.051.167-.127.312-.229.435-.103.124-.231.222-.386.293-.154.071-.334.107-.539.107-.066 0-.139-.007-.221-.02a1.25 1.25 0 0 1-.242-.067.94.94 0 0 1-.227-.125.67.67 0 0 1-.179-.196h-.009v1.359h-.446v-3.638zm1.585.936c-.033-.117-.083-.222-.151-.313-.067-.092-.154-.165-.26-.219-.105-.054-.229-.081-.371-.081-.149 0-.275.028-.379.086a.76.76 0 0 0-.255.226c-.066.094-.113.2-.143.318-.029.119-.044.24-.044.362 0 .129.016.253.047.373.031.121.08.227.148.319.067.091.155.165.262.221q.162.084.39.084c.152 0 .28-.029.382-.087a.694.694 0 0 0 .246-.229c.063-.095.108-.203.135-.325.028-.122.042-.248.042-.377 0-.122-.016-.241-.049-.358m2.799 1.527c-.201.149-.455.224-.761.224q-.324 0-.561-.102c-.159-.068-.292-.163-.4-.285-.107-.122-.188-.268-.242-.438-.054-.169-.084-.354-.091-.554 0-.2.031-.384.094-.55.062-.166.15-.311.263-.433s.248-.217.402-.285c.155-.067.325-.101.51-.101.24 0 .439.048.598.145.158.097.285.22.381.37q.144.2235.198.489c.037.177.052.345.045.505h-2.018c-.004.115.01.224.041.328.032.103.082.195.151.274.07.08.158.143.266.191.108.047.234.071.38.071.187 0 .341-.043.461-.128q.1785-.1275.237-.387h.438c-.059.295-.19.517-.392.666m-.108-1.688c-.04-.092-.093-.171-.161-.237a.77.77 0 0 0-.239-.157c-.092-.039-.194-.059-.304-.059-.115 0-.218.02-.31.059a.71.71 0 0 0-.237.16.8.8 0 0 0-.156.236c-.038.09-.06.186-.067.287h1.545a.86.86 0 0 0-.071-.289m1.259-.775v.418h.009c.185-.32.478-.479.88-.479.178 0 .326.023.445.071s.215.114.288.199c.074.085.125.186.155.303.029.117.044.247.044.39v1.733h-.446v-1.783q0-.2445-.147-.387c-.097-.095-.231-.143-.402-.143-.136 0-.253.021-.353.062-.099.04-.182.098-.248.173a.75.75 0 0 0-.149.262c-.033.1-.049.21-.049.328v1.487h-.447v-2.634zm4.908 2.606c-.202.083-.406.125-.611.125-.324 0-.616-.056-.875-.166s-.477-.262-.655-.456c-.178-.193-.314-.42-.409-.682-.095-.261-.142-.542-.142-.844 0-.31.047-.597.142-.862.094-.265.23-.496.408-.694.177-.197.395-.352.654-.464.259-.113.55-.169.875-.169.217 0 .427.032.631.096.203.064.387.158.551.282.164.125.3.277.406.459.107.182.172.391.196.626h-.889c-.055-.231-.162-.405-.32-.521-.159-.116-.35-.174-.575-.174-.21 0-.388.04-.534.119s-.265.186-.356.319q-.1365.201-.198.456-.063.255-.063.528c0 .174.021.344.063.508.041.165.108.313.199.444.091.132.209.237.356.316.146.08.324.119.534.119.309 0 .547-.076.715-.228.169-.152.267-.372.294-.661h-.936v-.681h1.776v2.237h-.591l-.095-.47c-.166.209-.35.355-.551.438m2.746-4.107v3.368h2.063v.768h-2.992V9.913zM24 13.667c0 .07-.017.134-.052.194a.389.389 0 0 1-.336.194.389.389 0 0 1-.336-.194.39.39 0 0 1-.052-.194.389.389 0 0 1 .194-.336.39.39 0 0 1 .194-.052.389.389 0 0 1 .336.194c.035.06.052.125.052.194m-.075 0c0-.086-.031-.16-.092-.221a.302.302 0 0 0-.221-.092c-.086 0-.16.031-.221.092a.302.302 0 0 0-.092.221c0 .086.031.16.092.221s.135.092.221.092.16-.031.221-.092a.302.302 0 0 0 .092-.221m-.489-.207h.186c.052 0 .09.01.114.032.023.021.035.049.035.085q0 .0405-.027.072c-.018.02-.046.035-.085.044.016.006.028.013.035.019q.0165.015.033.042c.001.002.023.042.067.12h-.122c-.039-.079-.066-.126-.079-.141-.014-.016-.028-.023-.041-.023-.003 0-.007 0-.013.001v.163h-.103zm.103.176h.045q.045 0 .063-.015a.046.046 0 0 0 .018-.037.05.05 0 0 0-.017-.038c-.012-.009-.032-.014-.06-.014h-.049z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="godot" title="Godot">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.5598.683c-1.096.244-2.1812.5831-3.1983 1.0951.023.8981.081 1.7582.199 2.6323-.395.253-.81.47-1.178.766-.375.288-.7581.564-1.0971.9011-.6781-.448-1.3962-.869-2.1352-1.2411C1.3532 5.6934.608 6.6186 0 7.6546c.458.7411.936 1.4352 1.4521 2.0942h.014v6.3565c.012 0 .023 0 .035.003l3.8963.376c.204.02.364.184.378.3891l.12 1.7201 3.3994.242.234-1.587c.03-.206.207-.358.415-.358h4.1114c.208 0 .385.152.415.358l.234 1.587 3.3993-.242.12-1.72a.4196.4196 0 01.378-.3891l3.8954-.376c.012 0 .023-.003.035-.003v-.5071h.002V9.7498h.014c.516-.659.994-1.3531 1.4521-2.0942-.608-1.036-1.3541-1.9611-2.1512-2.8192-.739.372-1.4571.793-2.1352 1.2411-.339-.337-.721-.613-1.096-.901-.369-.296-.7841-.5131-1.1781-.7661.117-.8741.175-1.7342.199-2.6323-1.0171-.512-2.1012-.851-3.1983-1.095-.438.736-.838 1.533-1.1871 2.3121-.414-.069-.829-.094-1.2461-.099h-.016c-.417.005-.832.03-1.2461.099-.349-.779-.749-1.576-1.1881-2.3121l.001-.001zM6.4765 9.9889c1.2971 0 2.3492 1.0511 2.3492 2.3482s-1.052 2.3482-2.3492 2.3482c-1.296 0-2.3482-1.051-2.3482-2.3482 0-1.297 1.0511-2.3482 2.3482-2.3482zm11.049 0c1.296 0 2.3482 1.0511 2.3482 2.3482s-1.0511 2.3482-2.3482 2.3482-2.3492-1.051-2.3492-2.3482c0-1.297 1.051-2.3482 2.3492-2.3482zm-10.824.9301c-.861 0-1.559.698-1.559 1.5591s.698 1.5582 1.559 1.5582c.8611 0 1.5592-.698 1.5592-1.5582 0-.86-.697-1.559-1.5591-1.559zm10.598 0c-.8611 0-1.5582.698-1.5582 1.5591s.697 1.5582 1.5581 1.5582c.8611 0 1.5592-.698 1.5592-1.5582 0-.86-.697-1.559-1.5592-1.559zm-5.2985.453c.417 0 .757.308.757.6871v2.1622c0 .379-.339.687-.757.687s-.756-.308-.756-.687V12.059c0-.379.339-.687.756-.687zM1.4601 16.9464c.002.377.006.789.006.871 0 3.7014 4.6944 5.4795 10.5269 5.5005h.014c5.8325-.02 10.5259-1.7991 10.5259-5.5004 0-.084.005-.495.007-.871l-3.5023.338-.121 1.729a.421.421 0 01-.389.3901l-4.1814.296a.4203.4203 0 01-.415-.358l-.238-1.6141h-3.3863l-.238 1.6141a.4192.4192 0 01-.4451.357l-4.1513-.296c-.208-.015-.375-.181-.389-.389l-.12-1.7292-3.5044-.337z"/></svg>
+        </span>
+        <span class="tech-icon" data-brand="unreal" title="Unreal Engine">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 1012 12A12 12 0 0012 0zm0 23.52A11.52 11.52 0 1123.52 12 11.52 11.52 0 0112 23.52zm7.13-9.791c-.206.997-1.126 3.557-4.06 4.942l-1.179-1.325-1.988 2a7.338 7.338 0 01-5.804-2.978 2.859 2.859 0 00.65.123c.326.006.678-.114.678-.66v-5.394a.89.89 0 00-1.116-.89c-.92.212-1.656 2.509-1.656 2.509a7.304 7.304 0 012.528-5.597 7.408 7.408 0 013.73-1.721c-1.006.573-1.57 1.507-1.57 2.29 0 1.262.76 1.109.984.923v7.28a1.157 1.157 0 00.148.256 1.075 1.075 0 00.88.445c.76 0 1.747-.868 1.747-.868V9.172c0-.6-.452-1.324-.905-1.572 0 0 .838-.149 1.484.346a5.537 5.537 0 01.387-.425c1.508-1.48 2.929-1.902 4.112-2.112 0 0-2.151 1.69-2.151 3.96 0 1.687.043 5.801.043 5.801.799.771 1.986-.342 3.059-1.441Z"/></svg>
+        </span>
+      </div>
+      <div class="dir-desc">学习方向以 Unity 客户端开发为主，Game Jam 参赛主力。从 2D 平台跳跃到 3D Roguelike，多款作品各具特色。</div>
       <div class="dir-count">8 个项目 →</div>
     </a>
     <a href="#dl" class="dir-card">
@@ -621,38 +726,38 @@ body {
   </div>
   <div class="proj-list">
     <div class="game-grid">
-      <div class="game-block">
+      <a href="https://silentshadow-0.itch.io/2026-dotective" target="_blank" class="game-block">
         <div class="gb-num">01</div>
         <div class="gb-name">Dotective</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">侦探解谜</div>
         <div class="gb-date">2026.02</div>
         <div class="gb-tags"><span>Unity3D</span><span>解谜</span></div>
-      </div>
-      <div class="game-block">
+      </a>
+      <a href="https://www.gcores.com/games/180051" target="_blank" class="game-block">
         <div class="gb-num">02</div>
-        <div class="gb-name">视界回廊</div>
+        <div class="gb-name">视限回廊</div>
         <div class="gb-author">刘宁宇、孙浩然等6人</div>
         <div class="gb-desc">潜行解谜</div>
         <div class="gb-date">2026.04 — 2026.05</div>
         <div class="gb-tags"><span>Unity</span><span>潜行</span><span>GameJam</span></div>
-      </div>
-      <div class="game-block">
+      </a>
+      <a href="https://github.com/Concorde0/PerlinNoise-u3d" target="_blank" class="game-block">
         <div class="gb-num">03</div>
         <div class="gb-name">Car</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">3D 跑酷</div>
         <div class="gb-date">2025.12</div>
         <div class="gb-tags"><span>Unity3D</span><span>Perlin Noise</span></div>
-      </div>
-      <div class="game-block">
+      </a>
+      <a href="https://github.com/Concorde0/TraeDemo" target="_blank" class="game-block">
         <div class="gb-num">04</div>
         <div class="gb-name">TraeDemo</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">类吸血鬼幸存者</div>
         <div class="gb-date">2026.04</div>
         <div class="gb-tags"><span>Unity</span><span>AI 辅助</span><span>限时开发</span></div>
-      </div>
+      </a>
       <div class="game-block">
         <div class="gb-num">05</div>
         <div class="gb-name">点到为止</div>
@@ -669,22 +774,22 @@ body {
         <div class="gb-date">2026.10 — 2026.12</div>
         <div class="gb-tags"><span>Unity</span><span>平台跳跃</span></div>
       </div>
-      <div class="game-block">
+      <a href="https://github.com/Concorde0/Elding-Ring-Remake" target="_blank" class="game-block">
         <div class="gb-num">07</div>
         <div class="gb-name">艾尔登法环</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">游戏复刻</div>
         <div class="gb-date">2025.06 — 2025.09</div>
         <div class="gb-tags"><span>Unity3D</span><span>重制</span></div>
-      </div>
-      <div class="game-block">
+      </a>
+      <a href="https://github.com/Concorde0/OpenGLRenderer" target="_blank" class="game-block">
         <div class="gb-num">08</div>
         <div class="gb-name">OpenGL 渲染器</div>
         <div class="gb-author">刘宁宇</div>
         <div class="gb-desc">渲染管线</div>
         <div class="gb-date">2026.03</div>
         <div class="gb-tags"><span>C++</span><span>OpenGL</span><span>图形学</span></div>
-      </div>
+      </a>
   </div>
   <div class="cta-wrap">
     <a href="games/index.html" class="cta-link">在线试玩全部作品 →</a>
@@ -736,12 +841,15 @@ body {
     <h2>软件部的小伙伴们</h2>
   </div>
   <div class="member-grid">
-    <div class="member-card"><div class="avatar">A</div><div class="name">张三</div><div class="role">部长 · 游戏开发</div></div>
-    <div class="member-card"><div class="avatar">B</div><div class="name">小红</div><div class="role">副部长 · APP 开发</div></div>
-    <div class="member-card"><div class="avatar">C</div><div class="name">老刘</div><div class="role">干事 · 深度学习</div></div>
-    <div class="member-card"><div class="avatar">D</div><div class="name">小李</div><div class="role">干事 · APP 开发</div></div>
-    <div class="member-card"><div class="avatar">E</div><div class="name">阿强</div><div class="role">干事 · 游戏开发</div></div>
-    <div class="member-card"><div class="avatar">F</div><div class="name">小周</div><div class="role">干事 · 深度学习</div></div>
+    <a href="https://github.com/zhyU0-0" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/zhyU0-0" alt="张宇"></div><div class="name">张宇</div><div class="role">24级 软件部部长 · APP开发</div></a>
+    <a href="https://github.com/shiroe120" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/shiroe120" alt="郑承睿"></div><div class="name">郑承睿</div><div class="role">24级 软件部副部长 · APP 开发</div></a>
+    <a href="https://github.com/Yiyue345" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/Yiyue345" alt="邓远翔"></div><div class="name">邓远翔</div><div class="role">24级 赛事副主席 · APP 开发</div></a>
+    <a href="https://github.com/XFuture0" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/XFuture0" alt="王玉豪"></div><div class="name">王玉豪</div><div class="role">24级 组织部部长 · 游戏开发</div></a>
+    <a href="https://github.com/Concorde0" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/Concorde0" alt="刘宁宇"></div><div class="name">刘宁宇</div><div class="role">24级 财务副主席 · 游戏开发</div></a>
+    <a href="https://github.com/FishCat233" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/FishCat233" alt="谭炜"></div><div class="name">谭炜</div><div class="role">24级 科技副主席 · 深度学习</div></a>
+    <a href="https://github.com/yejinpeng12" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/yejinpeng12" alt="叶锦鹏"></div><div class="name">叶锦鹏</div><div class="role">24级 成员 · 深度学习</div></a>
+    <a href="https://github.com/wilinz" target="_blank" class="member-card"><div class="avatar"><img src="https://avatars.githubusercontent.com/wilinz" alt="韦立赞"></div><div class="name">韦立赞</div><div class="role">22级 前科技副主席 · APP开发</div></a>
+
   </div>
 </section>
 
