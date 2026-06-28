@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Jam 作品展 · 软件部 | 三院科协</title>
+<style>
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+body {
+  font-family: 'Maple', 'Courier New', monospace;
+  background: #F4F2EE;
+  color: #0F4464;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #0F4464; color: #FFFFFF; }
+
+/* ---- NAV ---- */
+.zine-nav {
+  position: fixed; left: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 12px;
+  transition: opacity 0.35s;
+}
+.zine-nav.hidden { opacity: 0; pointer-events: none; }
+.zine-nav a {
+  display: block; width: 12px; height: 12px;
+  background: #0F4464; opacity: 0.15;
+  transform: rotate(45deg);
+  transition: all 0.25s;
+}
+.zine-nav a.active { opacity: 0.8; transform: rotate(45deg) scale(1.6); }
+.zine-nav a:hover { opacity: 0.5; }
+
+.kb-hint {
+  position: fixed; bottom: 20px; right: 28px; z-index: 300;
+  font-size: 13px; color: #0F4464;
+  opacity: 0.2; letter-spacing: 2px;
+  pointer-events: none;
+  transform: rotate(-1deg);
+}
+
+/* ---- SLIDE BASE ---- */
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 64px 48px;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+/* ---- COVER ---- */
+.dept-cover {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+}
+.dept-cover .dc-inner {
+  position: relative; z-index: 2;
+  max-width: 800px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dept-cover .dc-breadcrumb {
+  display: inline-block;
+  border: 4px solid rgba(255,255,255,0.2);
+  padding: 8px 24px;
+  font-size: 14px; letter-spacing: 3px;
+  transform: rotate(-1deg);
+  margin-bottom: 24px;
+}
+.dept-cover .dc-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.dept-cover h1 {
+  font-size: clamp(56px, 10vw, 100px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  transform: rotate(-0.5deg);
+  line-height: 1;
+}
+.dept-cover .dc-sub {
+  font-size: 22px; opacity: 0.4;
+  margin-top: 16px; letter-spacing: 3px;
+  transform: rotate(0.3deg);
+}
+.dept-cover .dc-img-float {
+  position: absolute;
+  border: 5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: rgba(255,255,255,0.1);
+}
+.dept-cover .dc-img-float.f1 {
+  width: 200px; height: 160px;
+  top: 20%; right: -30px;
+  transform: rotate(4deg);
+}
+.dept-cover .dc-img-float.f2 {
+  width: 160px; height: 120px;
+  bottom: 15%; left: -20px;
+  transform: rotate(-3deg);
+}
+
+/* ---- HEADER ---- */
+.collage-header {
+  position: relative; z-index: 2;
+  margin-bottom: 24px;
+  transform: rotate(-0.5deg);
+}
+.collage-header .ch-tag {
+  display: inline-block;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 5px;
+  border: 4px solid #0F4464;
+  padding: 6px 18px;
+  margin-bottom: 10px;
+  transform: rotate(-1.5deg);
+}
+.collage-header h2 {
+  font-size: clamp(36px, 7vw, 64px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.collage-header .ch-sub {
+  font-size: 18px; color: #3A6A80; margin-top: 6px;
+}
+.ch-author { font-size: 14px; color: #3A6A80; margin-top: 4px; letter-spacing: 1px; }
+
+/* ---- GAME EMBED ---- */
+.game-embed-wrap {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 78%;
+  align-self: center;
+  aspect-ratio: 16 / 9;
+  border: 3px solid #0F4464; background: #0F4464;
+  overflow: hidden;
+}
+.game-iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  border: none;
+}
+.game-placeholder {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; cursor: pointer; z-index: 2;
+  background-color: #0F4464; color: #FFFFFF;
+  background-size: cover; background-position: center; background-repeat: no-repeat;
+  transition: opacity 0.5s ease; user-select: none;
+}
+.game-placeholder.loaded { opacity: 0; pointer-events: none; }
+.gp-title { font-size: 28px; font-weight: 700; }
+.gp-desc { font-size: 16px; opacity: 0.5; margin-bottom: 6px; }
+.gp-btn {
+  padding: 12px 32px; border: 3px solid #FFFFFF;
+  background: transparent; color: #FFFFFF;
+  font-size: 17px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Maple', 'Courier New', monospace;
+}
+.gp-btn:hover { background: #FFFFFF; color: #0F4464; }
+
+/* ---- GAME SHOWCASE (elden ring / opengl) ---- */
+.showcase-vid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+
+.thumb-row { display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 2; max-width: 78%; align-self: center; }
+.thumb-row img {
+  height: 80px; width: auto; border: 3px solid #0F4464;
+  object-fit: contain; cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.thumb-row img:hover { transform: scale(1.08); border-color: #2A6A8A; }
+
+/* ---- IMAGE OVERLAY ---- */
+.img-overlay {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.92);
+  z-index: 500; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s; cursor: pointer;
+}
+.img-overlay.active { opacity: 1; pointer-events: auto; }
+.img-overlay img {
+  max-width: 90vw; max-height: 85vh;
+  border: 6px solid #0F4464; cursor: default;
+}
+.img-overlay .io-hint {
+  position: absolute; bottom: 30px;
+  font-size: 14px; color: rgba(255,255,255,0.3);
+  letter-spacing: 2px; pointer-events: none;
+}
+
+/* ---- GAME TEXT SECTION STACK ---- */
+.game-stack {
+  position: relative; z-index: 2;
+  width: 100%; max-width: 78%;
+  align-self: center;
+  aspect-ratio: 16 / 9;
+  border: 3px solid #0F4464; background: #0F4464;
+  overflow: hidden;
+}
+
+/* ---- SLIDE TITLE ROW (title + thumbs side by side) ---- */
+.slide-title-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 24px;
+  position: relative; z-index: 2;
+}
+.slide-title-row .collage-header { margin-bottom: 0; }
+.slide-title-row .thumb-row {
+  max-width: 45%; flex-shrink: 0;
+  align-self: flex-start; margin-top: 4px;
+}
+
+/* ---- COMPACT GAME SLIDE (最大游戏画面) ---- */
+.game-slide { padding: 12px 64px 12px !important; justify-content: center; }
+.game-slide .collage-header { margin-bottom: 8px; }
+.game-slide .collage-header .ch-tag { font-size: 14px; padding: 5px 16px; margin-bottom: 4px; }
+.game-slide .collage-header h2 { font-size: clamp(42px, 6.5vw, 60px); }
+.game-slide .collage-header .ch-sub { font-size: 18px; margin-top: 4px; color: #1A4A6A; }
+.game-slide .ch-author { font-size: 16px; margin-top: 4px; letter-spacing: 1px; color: #1A4A6A; }
+
+/* ---- CLOSING DEPT NAV ---- */
+.slide-closing {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.slide-closing .closing-title-block { transform: rotate(-0.8deg); }
+.slide-closing .closing-title-block h2 {
+  font-size: clamp(44px, 9vw, 80px);
+  font-weight: 700; letter-spacing: -2px;
+  margin-bottom: 4px;
+}
+.slide-closing .closing-sub {
+  font-size: 22px; opacity: 0.3; letter-spacing: 4px;
+}
+.closing-dept-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; width: 100%; max-width: 900px;
+  position: relative; z-index: 2;
+}
+.closing-dept-grid .cdg-card {
+  border: 6px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  text-align: left; text-decoration: none; color: #FFFFFF;
+  transition: all 0.15s; position: relative;
+}
+.closing-dept-grid .cdg-card:nth-child(1) { transform: rotate(-1.2deg); }
+.closing-dept-grid .cdg-card:nth-child(2) { transform: rotate(1deg); margin-top: 6px; }
+.closing-dept-grid .cdg-card:nth-child(3) { transform: rotate(0.6deg); margin-top: -6px; }
+.closing-dept-grid .cdg-card:nth-child(4) { transform: rotate(-0.8deg); }
+.closing-dept-grid .cdg-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  transform: rotate(0deg) scale(1.03); z-index: 5;
+}
+.closing-dept-grid .cdg-card .cdg-icon { font-size: 40px; margin-bottom: 4px; }
+.closing-dept-grid .cdg-card .cdg-name { font-size: 32px; font-weight: 700; letter-spacing: -1px; }
+.closing-dept-grid .cdg-card .cdg-desc {
+  font-size: 15px; color: rgba(255,255,255,0.3);
+  letter-spacing: 1px; margin-top: 4px;
+}
+.closing-dept-grid .cdg-card .cdg-arrow {
+  position: absolute; bottom: 20px; right: 24px;
+  font-size: 28px; opacity: 0.15;
+}
+
+/* ---- DECORATIVE ---- */
+.slide .ghost-block {
+  position: absolute;
+  border: 4px dashed #0F4464;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 800px) {
+  .slide { padding: 60px 20px 32px; }
+  .dept-cover .dc-stats { flex-direction: column; gap: 8px; }
+  .game-embed-wrap, .game-stack, .thumb-row { max-width: 100%; }
+  .thumb-row { gap: 6px; }
+  .thumb-row img { height: 56px; }
+  .slide-title-row { flex-direction: column; gap: 12px; }
+  .slide-title-row .thumb-row { max-width: 100%; }
+  .closing-dept-grid { grid-template-columns: 1fr; }
+  .closing-dept-grid .cdg-card { margin-top: 0 !important; }
+}
+/* ---- SHORT VIEWPORT (e.g. 1080p) — tighten to avoid overflow ---- */
+@media (max-height: 1150px) {
+  .slide { padding: 40px 36px; }
+  .game-slide { padding: 60px 64px 36px !important; }
+  .game-embed-wrap, .game-stack { max-width: 68%; }
+  .slide-title-row .thumb-row { max-width: 50%; }
+  .thumb-row { flex-wrap: nowrap; }
+  .thumb-row img { height: 110px; }
+  .collage-header { margin-bottom: 10px; }
+  .collage-header h2 { font-size: clamp(50px, 8vw, 76px); }
+  .collage-header .ch-sub { font-size: 34px; }
+  .game-slide .ch-author { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="zine-nav" id="zineNav"></nav>
+
+<!-- ===== COVER ===== -->
+<section class="slide dept-cover" data-index="0">
+  <div class="dc-inner">
+    <div class="dc-breadcrumb"><a href="../index.html">← 软件部</a></div>
+    <h1>游戏开发作品展</h1>
+    <div class="dc-sub">年度作品合集</div>
+  </div>
+  <div class="dc-img-float f1">[ 游戏截图 ]</div>
+  <div class="dc-img-float f2">[ 开发花絮 ]</div>
+</section>
+
+<!-- ===== Dotective ===== -->
+<section class="slide game-slide" data-index="1">
+  <div class="ghost-block" style="width:300px;height:200px;bottom:20px;right:-40px;transform:rotate(6deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 01</div>
+    <h2>Dotective</h2>
+    <div class="ch-sub">萌芽GameJam 萌芽奖作品 · 侦探解谜</div>
+    <div class="ch-author">刘宁宇</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://dotective-psi.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="dotective" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../01.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Booom2026 ===== -->
+<section class="slide game-slide" data-index="2">
+  <div class="ghost-block" style="width:220px;height:280px;top:40px;left:-30px;transform:rotate(-5deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 02</div>
+    <h2>视界回廊</h2>
+    <div class="ch-sub">Booom GameJam 作品 · 潜行游戏</div>
+    <div class="ch-author">刘宁宇、孙浩然、李为源、黄贞佶、黄益喜、周可卿</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://booom2026.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="booom" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../02.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Car ===== -->
+<section class="slide game-slide" data-index="3">
+  <div class="ghost-block" style="width:260px;height:170px;top:20px;right:-30px;transform:rotate(4deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 03</div>
+    <h2>Car</h2>
+    <div class="ch-sub">Perlin Noise 程序化生成 · 跑酷小车</div>
+    <div class="ch-author">刘宁宇</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://car-theta-nine.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="car" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../03.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TraeDemo ===== -->
+<section class="slide game-slide" data-index="4">
+  <div class="ghost-block" style="width:200px;height:250px;bottom:30px;left:-20px;transform:rotate(-3deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 04</div>
+    <h2>TraeDemo</h2>
+    <div class="ch-sub">Trae 两小时开发 · 类吸血鬼幸存者</div>
+    <div class="ch-author">刘宁宇</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://traesurvivors.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="traedemo" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../04.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== dot-liart ===== -->
+<section class="slide game-slide" data-index="5">
+  <div class="ghost-block" style="width:260px;height:170px;top:20px;left:-25px;transform:rotate(-3deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 05</div>
+    <h2>点到为止</h2>
+    <div class="ch-sub">萌芽 GameJam 作品 · 解密 </div>
+    <div class="ch-author">欧阳宸诚、孙浩然、周可卿</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://dot-liart.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="dotliart" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../05.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== fade2d ===== -->
+<section class="slide game-slide" data-index="6">
+  <div class="ghost-block" style="width:220px;height:240px;bottom:20px;right:-25px;transform:rotate(4deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 06</div>
+    <h2>fade2d</h2>
+    <div class="ch-sub">绘蓝杯作品 · 2D 平台跳跃</div>
+    <div class="ch-author">孙浩然</div>
+  </div>
+  <div class="game-embed-wrap">
+    <iframe data-src="https://fade2d.vercel.app/" src="" class="game-iframe" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-modals" loading="lazy"></iframe>
+    <div class="game-placeholder" data-game="fade2d" style="background-image:linear-gradient(145deg,rgba(15,68,100,0.9) 0%,rgba(15,68,100,0.4) 50%,rgba(15,68,100,0.85) 100%),url('../../../../06.png');">
+      <button class="gp-btn">点击加载游戏</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 艾尔登法环 ===== -->
+<section class="slide game-slide" data-index="7">
+  <div class="ghost-block" style="width:240px;height:180px;top:30px;right:-20px;transform:rotate(3deg);"></div>
+  <div class="slide-title-row">
+    <div class="collage-header">
+      <div class="ch-tag">作品 07</div>
+      <h2>艾尔登法环 Remaster</h2>
+      <div class="ch-sub">暑期考核 · 复刻艾尔登法环</div>
+      <div class="ch-author">刘宁宇</div>
+    </div>
+    <div class="thumb-row">
+      <img src="images/elden-1.png" alt="" loading="lazy" class="gallery-img">
+      <img src="images/elden-2.png" alt="" loading="lazy" class="gallery-img">
+      <img src="images/elden-3.png" alt="" loading="lazy" class="gallery-img">
+      <img src="images/elden-4.png" alt="" loading="lazy" class="gallery-img">
+    </div>
+  </div>
+  <div class="game-stack">
+    <video src="images/elden-demo.mp4" class="showcase-vid" autoplay loop muted playsinline></video>
+  </div>
+</section>
+
+<!-- ===== OpenGL 渲染器 ===== -->
+<section class="slide game-slide" data-index="8">
+  <div class="ghost-block" style="width:260px;height:200px;bottom:20px;left:-30px;transform:rotate(-5deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">作品 08</div>
+    <h2>OpenGL 渲染器</h2>
+    <div class="ch-sub">图形学 Demo · C++ / GLSL</div>
+    <div class="ch-author">刘宁宇</div>
+  </div>
+  <div class="game-stack">
+    <video src="images/opengl-demo.mp4" class="showcase-vid" autoplay loop muted playsinline></video>
+  </div>
+</section>
+
+<!-- ===== 部门导航 ===== -->
+<section class="slide slide-closing" data-index="9">
+  <div class="closing-title-block">
+    <h2>其他部门</h2>
+    <div class="closing-sub">EXPLORE MORE</div>
+  </div>
+  <div class="closing-dept-grid">
+    <a href="../../software/index.html" class="cdg-card">
+      <div class="cdg-name">软件部</div>
+      <div class="cdg-desc">APP · 游戏 · 深度学习</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../../multimedia/index.html" class="cdg-card">
+      <div class="cdg-name">多媒体部</div>
+      <div class="cdg-desc">视频 · 设计 · 前后端</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../../hardware/index.html" class="cdg-card">
+      <div class="cdg-name">硬件部</div>
+      <div class="cdg-desc">嵌入式 · IoT · 电路</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../../security/index.html" class="cdg-card">
+      <div class="cdg-name">安全部</div>
+      <div class="cdg-desc">CTF · 渗透 · 逆向</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../../organization/index.html" class="cdg-card">
+      <div class="cdg-name">组织部</div>
+      <div class="cdg-desc">策划 · 管理 · 文化</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<div class="kb-hint">SCROLL · ↑↓ 切换</div>
+
+<!-- ===== IMAGE OVERLAY ===== -->
+<div class="img-overlay" id="imgOverlay">
+  <img id="imgOverlaySrc" src="" alt="">
+  <div class="io-hint">点击空白关闭</div>
+</div>
+
+<script>
+const slides = document.querySelectorAll('[data-index]');
+const nav = document.getElementById('zineNav');
+
+slides.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#'; a.dataset.index = s.dataset.index;
+  nav.appendChild(a);
+});
+const dots = nav.querySelectorAll('a');
+
+function updateActive(idx) {
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  nav.classList.toggle('hidden', idx === 0 || idx === slides.length - 1);
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      updateActive(parseInt(e.target.dataset.index));
+    }
+  });
+}, { threshold: 0.4 });
+slides.forEach(s => obs.observe(s));
+
+dots.forEach(d => {
+  d.addEventListener('click', e => {
+    e.preventDefault();
+    const idx = parseInt(d.dataset.index);
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur < slides.length - 1) slides[cur + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur > 0) slides[cur - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+updateActive(0);
+
+/* ---- Game placeholder click-to-load ---- */
+document.querySelectorAll('.game-placeholder').forEach(function(el) {
+  el.addEventListener('click', function() {
+    var wrap = el.closest('.game-embed-wrap');
+    var iframe = wrap.querySelector('.game-iframe');
+    if (iframe && iframe.dataset.src) iframe.src = iframe.dataset.src;
+    el.classList.add('loaded');
+  });
+});
+
+/* ---- Visibility pause/resume for iframes ---- */
+(function(){
+  var gameSections = document.querySelectorAll('.game-embed-wrap');
+  var visObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      var iframe = entry.target.querySelector('.game-iframe');
+      if (!iframe || !iframe.src) return;
+      if (!entry.isIntersecting) {
+        iframe.dataset.pausedSrc = iframe.src;
+        iframe.src = '';
+      } else {
+        if (iframe.dataset.pausedSrc) {
+          iframe.src = iframe.dataset.pausedSrc;
+          delete iframe.dataset.pausedSrc;
+        }
+      }
+    });
+  }, { threshold: 0 });
+  gameSections.forEach(function(sec) { visObs.observe(sec); });
+})();
+
+/* ---- Image overlay (click thumbnail → full-size) ---- */
+(function(){
+  var overlay = document.getElementById('imgOverlay');
+  var imgEl = document.getElementById('imgOverlaySrc');
+  if (!overlay || !imgEl) return;
+
+  document.querySelectorAll('.gallery-img').forEach(function(img) {
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      imgEl.src = this.src;
+      overlay.classList.add('active');
+    });
+  });
+
+  overlay.addEventListener('click', function() {
+    this.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') overlay.classList.remove('active');
+  });
+})();
+</script>
+</body>
+</html>

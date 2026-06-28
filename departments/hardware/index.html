@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬件部 · 年度报告 | 三院科协</title>
+<style>
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+body {
+  font-family: 'Maple', 'Courier New', monospace;
+  background: #F4F2EE;
+  color: #0F4464;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #0F4464; color: #FFFFFF; }
+
+/* ---- NAV ---- */
+.zine-nav {
+  position: fixed; left: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 12px;
+  transition: opacity 0.35s;
+}
+.zine-nav.hidden { opacity: 0; pointer-events: none; }
+.zine-nav a {
+  display: block; width: 12px; height: 12px;
+  background: #0F4464; opacity: 0.15;
+  transform: rotate(45deg);
+  transition: all 0.25s;
+}
+.zine-nav a.active { opacity: 0.8; transform: rotate(45deg) scale(1.6); }
+.zine-nav a:hover { opacity: 0.5; }
+
+.kb-hint {
+  position: fixed; bottom: 20px; right: 28px; z-index: 300;
+  font-size: 13px; color: #0F4464;
+  opacity: 0.2; letter-spacing: 2px;
+  pointer-events: none;
+  transform: rotate(-1deg);
+}
+
+/* ---- SLIDE BASE ---- */
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 64px 48px;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+/* ---- COVER ---- */
+.dept-cover {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+}
+.dept-cover .dc-inner {
+  position: relative; z-index: 2;
+  max-width: 800px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dept-cover .dc-breadcrumb {
+  display: inline-block;
+  border: 4px solid rgba(255,255,255,0.2);
+  padding: 8px 24px;
+  font-size: 14px; letter-spacing: 3px;
+  transform: rotate(-1deg);
+  margin-bottom: 24px;
+}
+.dept-cover .dc-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.dept-cover .dc-icon {
+  width: 80px; height: 80px;
+  border: 5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin-bottom: 20px;
+  transform: rotate(2deg);
+}
+.dept-cover h1 {
+  font-size: clamp(56px, 10vw, 100px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  transform: rotate(-0.5deg);
+  line-height: 1;
+}
+.dept-cover .dc-sub {
+  font-size: 22px; opacity: 0.4;
+  margin-top: 16px; letter-spacing: 3px;
+  transform: rotate(0.3deg);
+}
+.dept-cover .dc-stats {
+  display: flex; gap: 32px; margin-top: 28px;
+}
+.dept-cover .dc-stats span {
+  font-size: 18px; opacity: 0.5;
+  letter-spacing: 2px;
+}
+.dept-cover .dc-img-float {
+  position: absolute;
+  border: 5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: rgba(255,255,255,0.1);
+}
+.dept-cover .dc-img-float.f1 {
+  width: 200px; height: 160px;
+  top: 20%; right: -30px;
+  transform: rotate(4deg);
+}
+.dept-cover .dc-img-float.f2 {
+  width: 160px; height: 120px;
+  bottom: 15%; left: -20px;
+  transform: rotate(-3deg);
+}
+
+/* ---- HEADER ---- */
+.collage-header {
+  position: relative; z-index: 2;
+  margin-bottom: 24px;
+  transform: rotate(-0.5deg);
+}
+.collage-header .ch-tag {
+  display: inline-block;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 5px;
+  border: 4px solid #0F4464;
+  padding: 6px 18px;
+  margin-bottom: 10px;
+  transform: rotate(-1.5deg);
+}
+.collage-header h2 {
+  font-size: clamp(36px, 7vw, 64px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+/* ---- PROJECT LIST ---- */
+.proj-list {
+  display: flex; flex-direction: column;
+  gap: 10px;
+  flex: 1; position: relative; z-index: 2;
+  justify-content: center;
+}
+.proj-list .proj-card {
+  border: 5px solid #0F4464;
+  background: #FFFFFF;
+  padding: 18px 22px;
+  display: flex;
+  gap: 16px;
+  transition: all 0.15s;
+  position: relative;
+}
+.proj-list .proj-card:nth-child(odd) { transform: rotate(-0.3deg); }
+.proj-list .proj-card:nth-child(even) { transform: rotate(0.4deg); }
+.proj-list .proj-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.01);
+  z-index: 5;
+}
+.proj-list .proj-card:hover .proj-meta,
+.proj-list .proj-card:hover .proj-desc { color: rgba(255,255,255,0.7); }
+.proj-list .proj-card:hover .proj-tags span {
+  border-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.7);
+}
+.proj-list .proj-card .proj-thumb {
+  width: 100px; min-height: 80px;
+  border: 3px dashed #0F4464;
+  background: #F0F3F6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.proj-list .proj-card:hover .proj-thumb {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.proj-list .proj-card .proj-info { flex: 1; min-width: 0; }
+.proj-list .proj-card .proj-title { font-size: 19px; font-weight: 700; margin-bottom: 2px; }
+.proj-list .proj-card .proj-meta {
+  font-size: 12px; color: #6A8A9A; margin-bottom: 4px;
+}
+.proj-list .proj-card .proj-desc {
+  font-size: 13px; color: #6A8A9A; line-height: 1.5;
+}
+.proj-list .proj-card .proj-tags {
+  display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap;
+}
+.proj-list .proj-card .proj-tags span {
+  padding: 2px 10px; border: 2px solid rgba(15,68,100,0.15);
+  font-size: 11px; color: #0F4464;
+}
+
+/* ---- STATS GRID ---- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1; position: relative; z-index: 2;
+  align-content: center;
+}
+.stats-grid .stat-card {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 32px 20px;
+  text-align: center;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.stats-grid .stat-card:nth-child(1) { transform: rotate(-0.8deg); }
+.stats-grid .stat-card:nth-child(2) { transform: rotate(0.6deg); }
+.stats-grid .stat-card:nth-child(3) { transform: rotate(-0.4deg); }
+.stats-grid .stat-card .stat-num {
+  font-size: clamp(48px, 8vw, 72px);
+  font-weight: 700; line-height: 1;
+}
+.stats-grid .stat-card .stat-label {
+  font-size: 16px; color: #6A8A9A; margin-top: 6px; letter-spacing: 2px;
+}
+
+/* ---- MEMBER GRID ---- */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1; position: relative; z-index: 2;
+  align-content: center;
+}
+.member-grid .member-card {
+  border: 5px solid #0F4464;
+  background: #FFFFFF;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.15s;
+}
+.member-grid .member-card:nth-child(1) { transform: rotate(-0.8deg); }
+.member-grid .member-card:nth-child(2) { transform: rotate(0.6deg); }
+.member-grid .member-card:nth-child(3) { transform: rotate(-0.4deg); }
+.member-grid .member-card:nth-child(4) { transform: rotate(1deg); }
+.member-grid .member-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.03);
+  z-index: 5;
+}
+.member-grid .member-card .avatar {
+  width: 56px; height: 56px;
+  border: 3px solid #0F4464;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; margin: 0 auto 8px;
+}
+.member-grid .member-card:hover .avatar {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+}
+.member-grid .member-card .name { font-size: 18px; font-weight: 700; }
+.member-grid .member-card .role { font-size: 13px; color: #6A8A9A; margin-top: 2px; }
+.member-grid .member-card:hover .role { color: rgba(255,255,255,0.6); }
+
+/* ---- CLOSING DEPT NAV ---- */
+.slide-closing {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.slide-closing .closing-title-block { transform: rotate(-0.8deg); }
+.slide-closing .closing-title-block h2 {
+  font-size: clamp(44px, 9vw, 80px);
+  font-weight: 700; letter-spacing: -2px;
+  margin-bottom: 4px;
+}
+.slide-closing .closing-sub {
+  font-size: 22px; opacity: 0.3; letter-spacing: 4px;
+}
+.closing-dept-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; width: 100%; max-width: 900px;
+  position: relative; z-index: 2;
+}
+.closing-dept-grid .cdg-card {
+  border: 6px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  text-align: left; text-decoration: none; color: #FFFFFF;
+  transition: all 0.15s; position: relative;
+}
+.closing-dept-grid .cdg-card:nth-child(1) { transform: rotate(-1.2deg); }
+.closing-dept-grid .cdg-card:nth-child(2) { transform: rotate(1deg); margin-top: 6px; }
+.closing-dept-grid .cdg-card:nth-child(3) { transform: rotate(0.6deg); margin-top: -6px; }
+.closing-dept-grid .cdg-card:nth-child(4) { transform: rotate(-0.8deg); }
+.closing-dept-grid .cdg-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  transform: rotate(0deg) scale(1.03); z-index: 5;
+}
+.closing-dept-grid .cdg-card .cdg-icon { font-size: 40px; margin-bottom: 4px; }
+.closing-dept-grid .cdg-card .cdg-name { font-size: 32px; font-weight: 700; letter-spacing: -1px; }
+.closing-dept-grid .cdg-card .cdg-desc {
+  font-size: 15px; color: rgba(255,255,255,0.3);
+  letter-spacing: 1px; margin-top: 4px;
+}
+.closing-dept-grid .cdg-card .cdg-arrow {
+  position: absolute; bottom: 20px; right: 24px;
+  font-size: 28px; opacity: 0.15;
+}
+
+/* ---- DECORATIVE ---- */
+.slide .ghost-block {
+  position: absolute;
+  border: 4px dashed #0F4464;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 800px) {
+  .slide { padding: 60px 20px 32px; }
+  .proj-list .proj-card { flex-direction: column; }
+  .proj-list .proj-card .proj-thumb { width: 100%; min-height: 60px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .member-grid { grid-template-columns: 1fr; }
+  .dept-cover .dc-stats { flex-direction: column; gap: 8px; }
+  .closing-dept-grid { grid-template-columns: 1fr; }
+  .closing-dept-grid .cdg-card { margin-top: 0 !important; }
+}
+/* ---- SHORT VIEWPORT (e.g. 1080p) — tighten to avoid overflow ---- */
+@media (max-height: 1150px) {
+  .slide { padding: 40px 36px; }
+  .collage-header { margin-bottom: 14px; }
+  .collage-header h2 { font-size: clamp(28px, 5vw, 48px); }
+  .proj-list .proj-card { padding: 14px 18px; }
+  .proj-list .proj-card .proj-title { font-size: 16px; }
+  .proj-list .proj-card .proj-desc { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="zine-nav" id="zineNav"></nav>
+
+<!-- ===== COVER ===== -->
+<section class="slide dept-cover" data-index="0">
+  <div class="dc-inner">
+    <div class="dc-breadcrumb"><a href="../../main.html">← 年度报告</a></div>
+    <h1>硬件部</h1>
+    <div class="dc-sub">让创意在硬件中实现</div>
+    <div class="dc-stats">
+      <span>15 名成员</span>
+      <span>6 个项目</span>
+    </div>
+  </div>
+  <div class="dc-img-float f1">[ 硬件实物 ]</div>
+  <div class="dc-img-float f2">[ 电路板 ]</div>
+</section>
+
+<!-- ===== 硬件项目 ===== -->
+<section class="slide" data-index="1">
+  <div class="ghost-block" style="width:300px;height:200px;bottom:20px;right:-40px;transform:rotate(6deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">项目</div>
+    <h2>年度硬件项目</h2>
+  </div>
+  <div class="proj-list">
+    <div class="proj-card">
+      <div class="proj-info">
+        <div class="proj-title">智能温控风扇</div>
+        <div class="proj-meta">2025.10 — 2025.12 · 小张 小李 小王</div>
+        <div class="proj-desc">基于 ESP32 + DHT22 温湿度传感器的智能风扇控制系统。支持手机 APP 远程控制、自动温度调节、定时开关。原型已在社团工作室运行 3 个月。</div>
+        <div class="proj-tags"><span>ESP32</span><span>Arduino</span><span>IoT</span></div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-info">
+        <div class="proj-title">社团门禁系统</div>
+        <div class="proj-meta">2026.01 — 2026.03 · 小刘 小赵</div>
+        <div class="proj-desc">基于 RFID + 指纹识别的智能门禁系统。支持 IC 卡、指纹、密码三种开锁方式，记录进出日志。已部署在社团工作室入口，日均使用 50+ 次。</div>
+        <div class="proj-tags"><span>RFID</span><span>指纹识别</span><span>STM32</span></div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-info">
+        <div class="proj-title">环境监测站</div>
+        <div class="proj-meta">2026.04 — 2026.06 · 小孙 小周</div>
+        <div class="proj-desc">校园环境监测节点，采集温度、湿度、PM2.5、CO2 浓度数据。通过 LoRa 组网传输，数据可视化展示在校园大屏上。参与校园科技节展示。</div>
+        <div class="proj-tags"><span>LoRa</span><span>传感器</span><span>数据可视化</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 成员 ===== -->
+<section class="slide" data-index="3">
+  <div class="ghost-block" style="width:260px;height:170px;top:20px;right:-30px;transform:rotate(4deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">团队</div>
+    <h2>硬件部的小伙伴们</h2>
+  </div>
+  <div class="member-grid">
+    <div class="member-card"><div class="avatar">A</div><div class="name">小张</div><div class="role">部长 · 嵌入式</div></div>
+    <div class="member-card"><div class="avatar">B</div><div class="name">小李</div><div class="role">副部长 · IoT</div></div>
+    <div class="member-card"><div class="avatar">C</div><div class="name">小刘</div><div class="role">干事 · 电路设计</div></div>
+    <div class="member-card"><div class="avatar">D</div><div class="name">小孙</div><div class="role">干事 · 嵌入式</div></div>
+  </div>
+</section>
+
+<!-- ===== 部门导航 ===== -->
+<section class="slide slide-closing" data-index="4">
+  <div class="closing-title-block">
+    <h2>其他部门</h2>
+    <div class="closing-sub">EXPLORE MORE</div>
+  </div>
+  <div class="closing-dept-grid">
+    <a href="../software/index.html" class="cdg-card">
+      <div class="cdg-name">软件部</div>
+      <div class="cdg-desc">APP · 游戏 · 深度学习</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../multimedia/index.html" class="cdg-card">
+      <div class="cdg-name">多媒体部</div>
+      <div class="cdg-desc">视频 · 设计 · 前后端</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../hardware/index.html" class="cdg-card">
+      <div class="cdg-name">硬件部</div>
+      <div class="cdg-desc">嵌入式 · IoT · 电路</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../security/index.html" class="cdg-card">
+      <div class="cdg-name">安全部</div>
+      <div class="cdg-desc">CTF · 渗透 · 逆向</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../organization/index.html" class="cdg-card">
+      <div class="cdg-name">组织部</div>
+      <div class="cdg-desc">策划 · 管理 · 文化</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<div class="kb-hint">SCROLL · ↑↓ 切换</div>
+
+<script>
+const slides = document.querySelectorAll('[data-index]');
+const nav = document.getElementById('zineNav');
+
+slides.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#'; a.dataset.index = s.dataset.index;
+  nav.appendChild(a);
+});
+const dots = nav.querySelectorAll('a');
+
+function updateActive(idx) {
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  nav.classList.toggle('hidden', idx === 0 || idx === slides.length - 1);
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      updateActive(parseInt(e.target.dataset.index));
+    }
+  });
+}, { threshold: 0.4 });
+slides.forEach(s => obs.observe(s));
+
+dots.forEach(d => {
+  d.addEventListener('click', e => {
+    e.preventDefault();
+    const idx = parseInt(d.dataset.index);
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur < slides.length - 1) slides[cur + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur > 0) slides[cur - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+updateActive(0);
+</script>
+</body>
+</html>

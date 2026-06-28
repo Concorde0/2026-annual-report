@@ -1,0 +1,2 @@
+# Feishu 自动下载的成员照片（每次拉取重新生成，不提交到 Git）
+photos/feishu/

@@ -1,0 +1,1476 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三院科协年度报告 · 拼贴粗野</title>
+<!--
+  System: Collage Brutalism — 拼贴错位 + 图片主导
+  Type scale: 120/72/48/32/22/16 · Maple Mono · weight 400/700
+  Color: #0F4464 (navy) on #FFFFFF · accent #E8EDF2 (ghost blocks)
+  Layout: rotated blocks, overlapped elements, zine-style misalignment
+  Rhythm: chaotic but structured — every slide has a dominant image zone
+  Signature: -2°~3° rotations, layered paper stacks, tape marks, oversized placeholders
+-->
+<style>
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+
+body {
+  font-family: 'Maple', 'Courier New', monospace;
+  background: #F4F2EE;
+  color: #0F4464;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #0F4464; color: #FFFFFF; }
+
+/* ---- FLOATING NAV DOTS (zine-style) ---- */
+.zine-nav {
+  position: fixed; left: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 12px;
+  transition: opacity 0.35s;
+}
+.zine-nav.hidden { opacity: 0; pointer-events: none;
+}
+.zine-nav a {
+  display: block; width: 12px; height: 12px;
+  background: #0F4464; opacity: 0.15;
+  transform: rotate(45deg);
+  transition: all 0.25s;
+}
+.zine-nav a.active { opacity: 0.8; transform: rotate(45deg) scale(1.6); }
+.zine-nav a:hover { opacity: 0.5; }
+
+/* ===== SLIDE BASE ===== */
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 40px 48px;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+/* Tape mark decoration */
+.tape {
+  position: absolute; z-index: 10;
+  width: 80px; height: 24px;
+  background: rgba(15,68,100,0.06);
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+/* ===== COVER: BIG COLLAGE ===== */
+.slide-cover {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.slide-cover .cover-collage {
+  position: relative;
+  width: 100%; max-width: 750px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.slide-cover .cover-block-top {
+  display: inline-block;
+  border: 4px solid rgba(255,255,255,0.3);
+  padding: 12px 32px;
+  font-size: 16px; letter-spacing: 6px;
+  transform: rotate(-1.5deg);
+  margin-bottom: 18px;
+}
+.slide-cover .cover-logo-center {
+  width: 200px; height: 200px;
+  margin-bottom: 22px;
+  border: 5px solid rgba(255,255,255,0.2);
+  padding: 16px;
+  transform: rotate(2deg);
+}
+.slide-cover .cover-logo-center img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0.9;
+}
+.slide-cover h1 {
+  font-size: clamp(48px, 9vw, 110px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -3px;
+  transform: rotate(0.5deg);
+}
+.slide-cover h1 .hl {
+  display: block;
+  font-size: clamp(28px, 5vw, 56px);
+  color: rgba(255,255,255,0.35);
+  margin-top: 6px;
+  transform: rotate(-1deg);
+}
+.slide-cover .cover-sub {
+  font-size: 20px; opacity: 0.45;
+  margin-top: 18px;
+  letter-spacing: 2px;
+  transform: rotate(0.3deg);
+}
+.slide-cover .cover-img-float {
+  position: absolute;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding: 0;
+  border: none;
+}
+.slide-cover .cover-img-float img {
+  display: block;
+  width: auto;
+  height: auto;
+  border: 6px solid rgba(255,255,255,0.25);
+}
+.slide-cover .cover-img-float.img1 img {
+  max-width: 680px;
+  max-height: 580px;
+}
+.slide-cover .cover-img-float.img2 img {
+  max-width: 570px;
+  max-height: 530px;
+}
+.slide-cover .cover-img-float.img3 img {
+  max-width: 550px;
+  max-height: 650px;
+}
+.slide-cover .cover-img-float.img4 img {
+  max-width: 500px;
+  max-height: 600px;
+}
+.slide-cover .cover-img-float.img1 {
+  top: 20px; left: 20px;
+  transform: rotate(-1.5deg);
+}
+.slide-cover .cover-img-float.img2 {
+  bottom: 20px; right: 40px;
+  transform: rotate(1.5deg);
+}
+.slide-cover .cover-img-float.img3 {
+  bottom: 20px; left: 20px;
+  transform: rotate(-2deg);
+}
+.slide-cover .cover-img-float.img4 {
+  top: 20px; right: 20px;
+  transform: rotate(2deg);
+}
+
+/* ===== COMMON: Collage header ===== */
+.collage-header {
+  position: relative; z-index: 2;
+  margin-bottom: 16px;
+  transform: rotate(-0.5deg);
+}
+.collage-header .ch-tag {
+  display: inline-block;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 5px;
+  border: 4px solid #0F4464;
+  padding: 6px 18px;
+  margin-bottom: 12px;
+  transform: rotate(-1.5deg);
+}
+.collage-header h2 {
+  font-size: clamp(40px, 8vw, 72px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+/* ===== ABOUT: COLLAGE LAYOUT ===== */
+.about-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  position: relative; z-index: 2;
+  flex: 1;
+}
+.about-collage .ac-text {
+  border: 6px solid #0F4464;
+  padding: 32px;
+  font-size: 27px;
+  line-height: 1.5;
+  background: #FFFFFF;
+  transform: rotate(0.5deg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.about-collage .ac-text p { margin-bottom: 0.6em; }
+.about-collage .ac-img-stack {
+  position: relative;
+}
+.about-collage .ac-img-stack .img-main {
+  width: 100%; height: 100%;
+  min-height: 250px;
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  overflow: hidden;
+  transform: rotate(1.5deg);
+  position: relative;
+}
+.about-collage .ac-img-stack .img-main img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-collage .ac-img-stack .img-ghost {
+  position: absolute; inset: -12px;
+  border: 4px dashed #0F4464;
+  opacity: 0.12;
+  transform: rotate(-2deg);
+  pointer-events: none;
+}
+
+/* Stats bar — offset */
+.stats-collage {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; margin-top: 12px;
+  position: relative; z-index: 2;
+}
+.stats-collage .sc-item {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 20px 12px;
+  text-align: center;
+  transform: rotate(-0.5deg);
+}
+.stats-collage .sc-item:nth-child(2) { transform: rotate(1deg); }
+.stats-collage .sc-item:nth-child(3) { transform: rotate(-0.3deg); }
+.stats-collage .sc-item:nth-child(4) { transform: rotate(0.8deg); }
+.stats-collage .sc-item .sc-num {
+  font-size: 48px; font-weight: 700; line-height: 1;
+}
+.stats-collage .sc-item .sc-lbl {
+  font-size: 14px; color: #6A8A9A; margin-top: 6px; letter-spacing: 2px;
+}
+
+/* ===== DATA: IMAGE-DOMINANT COLLAGE ===== */
+.data-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  flex: 1; position: relative; z-index: 2;
+}
+.data-collage .dc-stat {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 20px;
+}
+.data-collage .dc-stat:nth-child(1) { transform: rotate(-0.8deg); }
+.data-collage .dc-stat:nth-child(2) { transform: rotate(0.6deg); }
+.data-collage .dc-stat:nth-child(3) { transform: rotate(-0.4deg); }
+.data-collage .dc-stat:nth-child(4) { transform: rotate(1deg); }
+.data-collage .dc-stat .dc-num {
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 700; line-height: 1;
+}
+.data-collage .dc-stat .dc-lbl {
+  font-size: 16px; color: #6A8A9A; margin-top: 6px; letter-spacing: 2px;
+}
+.data-collage .dc-img {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #8AA0B3;
+  transform: rotate(1.2deg);
+  grid-column: span 2; grid-row: span 2;
+}
+.data-collage .dc-img .img-inner {
+  text-align: center;
+}
+
+/* ===== EVENTS: TEXT-ONLY BIG CARDS (fit one page) ===== */
+.events-collage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr 1fr 1fr;
+  gap: 10px;
+  flex: 1; position: relative; z-index: 2;
+  min-height: 0;
+}
+.events-collage .ec-polaroid {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 10px 14px;
+  display: flex; flex-direction: column;
+  align-items: center;
+  text-align: center;
+  text-decoration: none;
+  color: #0F4464;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  justify-content: center;
+}
+.events-collage .ec-polaroid:hover {
+  box-shadow: 0 6px 32px rgba(15,68,100,0.18);
+  z-index: 5;
+}
+.events-collage .ec-polaroid:nth-child(2) { transform: rotate(-1.5deg); }
+.events-collage .ec-polaroid:nth-child(3) { transform: rotate(1.2deg); }
+.events-collage .ec-polaroid:nth-child(4) { transform: rotate(-0.8deg); }
+.events-collage .ec-polaroid:nth-child(5) { transform: rotate(0.6deg); }
+.events-collage .ec-polaroid:nth-child(6) { transform: rotate(-1.2deg); }
+.events-collage .ec-polaroid:nth-child(7) { transform: rotate(0.8deg); }
+.events-collage .ec-polaroid:nth-child(8) { transform: rotate(-0.5deg); }
+.events-collage .ec-polaroid:nth-child(9) { transform: rotate(1deg); }
+.events-collage .ec-polaroid:nth-child(10) { transform: rotate(-1deg); }
+.events-collage .ec-polaroid:nth-child(11) { transform: rotate(0.5deg); }
+.events-collage .ec-polaroid .ec-date {
+  font-size: clamp(12px, 1.6vw, 18px);
+  font-weight: 700;
+  color: #6A8A9A;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.events-collage .ec-polaroid .ec-events {
+  font-size: clamp(14px, 2vw, 26px);
+  font-weight: 700;
+  color: #0F4464;
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+}
+.events-collage .ec-polaroid .ec-events .ec-sub {
+  display: block;
+  font-size: clamp(10px, 1.2vw, 14px);
+  font-weight: 400;
+  color: #6A8A9A;
+  margin-top: 3px;
+  letter-spacing: 1px;
+}
+.events-collage .ec-polaroid .ec-tags {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+.events-collage .ec-polaroid .ec-tags span {
+  font-size: clamp(9px, 1vw, 12px);
+  padding: 2px 8px;
+  border: 2px solid rgba(15,68,100,0.12);
+  color: #6A8A9A;
+  letter-spacing: 1px;
+}
+
+/* Daily card — full width top row */
+.events-collage .ec-polaroid.ec-daily {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  gap: 16px;
+  padding: 10px 24px;
+  min-height: auto;
+  background: #0F4464;
+  color: #FFFFFF;
+  transform: rotate(0.3deg) !important;
+}
+.events-collage .ec-polaroid.ec-daily:hover {
+  background: #1A5A7A;
+  box-shadow: 0 6px 32px rgba(15,68,100,0.3);
+}
+.events-collage .ec-polaroid.ec-daily .ec-date {
+  color: rgba(255,255,255,0.5);
+  font-size: clamp(11px, 1.4vw, 16px);
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+.events-collage .ec-polaroid.ec-daily .ec-events {
+  color: #FFFFFF;
+  font-size: clamp(16px, 2.6vw, 34px);
+}
+.events-collage .ec-polaroid.ec-daily .ec-events .ec-sub {
+  color: rgba(255,255,255,0.4);
+  font-size: clamp(10px, 1.2vw, 14px);
+}
+.events-collage .ec-polaroid.ec-daily .ec-daily-icon {
+  font-size: clamp(24px, 3vw, 42px);
+  opacity: 0.6;
+}
+
+/* ===== EVENT DETAIL SECTIONS (free scroll) ===== */
+.event-detail {
+  min-height: 100vh;
+  padding: 48px;
+  position: relative;
+  background: #F4F2EE;
+  scroll-snap-align: none;
+}
+.event-detail:nth-of-type(even) { background: #F0EDE8; }
+.event-detail .ed-header {
+  text-align: center;
+  margin-bottom: 32px;
+  transform: rotate(-0.3deg);
+}
+.event-detail .ed-header h2 {
+  font-size: clamp(38px, 6vw, 64px);
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.event-detail .ed-header .ed-sub {
+  font-size: clamp(14px, 2.4vw, 24px);
+  color: #6A8A9A;
+  letter-spacing: 4px;
+  margin-top: 8px;
+}
+.event-detail .ed-back {
+  display: block;
+  text-align: center;
+  margin: 28px auto 0;
+  font-size: 15px;
+  color: #0F4464;
+  text-decoration: none;
+  letter-spacing: 2px;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+  padding: 8px 24px;
+  border: 2px dashed rgba(15,68,100,0.1);
+  width: fit-content;
+}
+.event-detail .ed-back:hover {
+  opacity: 0.8;
+}
+
+/* ---- EVENT DETAIL: INTRO ---- */
+.event-detail .ed-intro {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 28px 36px;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+.event-detail .ed-intro .ed-label {
+  font-size: clamp(13px, 2vw, 21px);
+  font-weight: 700;
+  color: #6A8A9A;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.event-detail .ed-intro p {
+  font-size: clamp(14px, 2.2vw, 24px);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---- EVENT DETAIL: FLIP VIEWER ---- */
+.event-detail .ed-flip {
+  max-width: 1125px;
+  margin: 0 auto 20px;
+  position: relative;
+  background: #FFFFFF;
+  border: 6px solid #0F4464;
+  padding: 12px;
+  box-shadow: 0 6px 30px rgba(15,68,100,0.06);
+}
+.event-detail .ed-flip.ef-r1 { transform: rotate(-0.4deg); }
+.event-detail .ed-flip.ef-r2 { transform: rotate(0.6deg); }
+.event-detail .ed-flip.ef-r3 { transform: rotate(-0.2deg); }
+.ef-viewport {
+  position: relative; width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: #F4F2EE;
+  border: 3px solid rgba(15,68,100,0.06);
+}
+.ef-strip {
+  display: flex; height: 100%;
+  transition: transform 0.5s cubic-bezier(.5,0,.25,1);
+  will-change: transform;
+}
+.ef-strip .ef-slide {
+  flex: 0 0 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px;
+}
+.ef-strip .ef-slide img {
+  display: block;
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.ef-prev, .ef-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 52px; height: 52px;
+  border: none; background: #FFFFFF;
+  color: #0F4464; font-size: 32px;
+  cursor: pointer; z-index: 10;
+  opacity: 0.25; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  border: 3px solid #0F4464; user-select: none;
+}
+.ef-prev:hover, .ef-next:hover { opacity: 1; background: #0F4464; color: #FFF; box-shadow: 0 4px 16px rgba(15,68,100,0.2); }
+.ef-prev { left: -26px; }
+.ef-next { right: -26px; }
+.ef-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 18px; margin-top: 12px; padding: 8px 0 4px;
+}
+.ef-bar .ef-counter {
+  font-size: 15px; letter-spacing: 3px; color: #6A8A9A;
+}
+.ef-bar .ef-counter strong { color: #0F4464; font-size: 20px; }
+.ef-bar .ef-dots { display: flex; gap: 6px; }
+.ef-bar .ef-dots span {
+  width: 10px; height: 10px;
+  border: 2px solid #0F4464; background: transparent;
+  transition: all 0.25s; cursor: pointer;
+  opacity: 0.2;
+}
+.ef-bar .ef-dots span.active { opacity: 1; background: #0F4464; transform: scale(1.3); }
+
+/* ---- LIGHTBOX (wall) ---- */
+.ed-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.ed-lightbox.open { display: flex; }
+.ed-lightbox img {
+  max-width: 88vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border: 8px solid #FFFFFF;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.ed-lb-close {
+  position: fixed;
+  top: 20px; right: 28px;
+  font-size: 44px; color: #fff;
+  cursor: pointer; opacity: 0.5;
+  transition: opacity 0.2s; line-height: 1; z-index: 10000;
+}
+.ed-lb-close:hover { opacity: 1; }
+.ed-lb-prev, .ed-lb-next {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  font-size: 48px; color: #fff; cursor: pointer;
+  opacity: 0.4; transition: opacity 0.2s; padding: 20px;
+  z-index: 10000; user-select: none;
+}
+.ed-lb-prev:hover, .ed-lb-next:hover { opacity: 0.8; }
+.ed-lb-prev { left: 16px; }
+.ed-lb-next { right: 16px; }
+.ed-lb-counter {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: 14px; letter-spacing: 2px; opacity: 0.6;
+}
+
+/* ===== DEPARTMENTS: OVERLAPPING CARDS ===== */
+.dept-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  flex: 1; position: relative; z-index: 2;
+}
+.dept-collage .dpc-card {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 36px 28px;
+  display: flex; align-items: center;
+  gap: 16px;
+  font-size: 32px; font-weight: 700;
+  text-decoration: none; color: #0F4464;
+  transition: all 0.15s;
+  position: relative;
+}
+.dept-collage .dpc-card:nth-child(1) { transform: rotate(-1deg); }
+.dept-collage .dpc-card:nth-child(2) { transform: rotate(0.8deg); margin-top: -8px; }
+.dept-collage .dpc-card:nth-child(3) { transform: rotate(0.5deg); }
+.dept-collage .dpc-card:nth-child(4) { transform: rotate(-0.6deg); margin-top: -8px; }
+.dept-collage .dpc-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.02);
+  z-index: 5;
+}
+.dept-collage .dpc-card .dpc-icon {
+  font-size: 44px;
+}
+.dept-collage .dpc-card .dpc-arrow {
+  margin-left: auto; font-size: 28px; opacity: 0.2;
+}
+
+/* ===== VOICES: SCATTERED WALL + CLICK-TO-FOCUS ===== */
+.voices-guide {
+  text-align: center; padding: 4px 0 14px;
+  font-size: 17px; color: #6A8A9A; letter-spacing: 2px;
+  z-index: 2; position: relative;
+}
+.voices-guide span {
+  display: inline-block; padding: 8px 24px;
+  border: 2px dashed rgba(15,68,100,0.2);
+  background: rgba(255,255,255,0.5);
+}
+.voices-wall {
+  flex: 1; position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 8px;
+  align-content: stretch;
+  padding: 4px 0;
+}
+.voices-wall .voice-chip {
+  border: 4px solid rgba(15,68,100,0.22);
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #FFFFFF;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  user-select: none;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.voices-wall .voice-chip:hover {
+  border-color: #0F4464;
+  box-shadow: 0 0 0 6px rgba(15,68,100,0.06);
+}
+.voices-wall .voice-chip:active { transform: scale(0.97); }
+.voices-wall .voice-chip .vc-q {
+  font-weight: 700; line-height: 1.3;
+}
+.voices-wall .voice-chip .vc-a {
+  font-size: 11px; color: #6A8A9A; margin-top: 4px;
+}
+.voices-wall .voice-chip .vc-a strong { color: #0F4464; }
+
+/* ---- Overlay ---- */
+.voices-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+.voices-overlay.active {
+  opacity: 1; pointer-events: auto;
+}
+.voices-overlay .vo-card {
+  background: #FFFFFF; border: 6px solid #0F4464;
+  padding: 44px 52px; max-width: 680px; width: 88vw;
+  text-align: center; cursor: default;
+  transform: rotate(-0.3deg);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+}
+.voices-overlay .vo-card .vo-q {
+  font-size: clamp(22px, 4vw, 38px); font-weight: 700; line-height: 1.3;
+}
+.voices-overlay .vo-card .vo-q::before {
+  content: ''; display: none;
+}
+.voices-overlay .vo-card .vo-a {
+  margin-top: 16px; font-size: 18px; color: #6A8A9A;
+  border-top: 3px solid rgba(15,68,100,0.1); padding-top: 16px;
+}
+.voices-overlay .vo-card .vo-a strong { color: #0F4464; }
+.voices-overlay .vo-hint {
+  margin-top: 20px;
+  font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 2px;
+}
+
+/* ===== FUTURE: POLAROID-STYLE ===== */
+.future-collage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  flex: 1; position: relative; z-index: 2;
+}
+.future-collage .fc-polaroid {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 20px 20px 28px;
+  display: flex; flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.future-collage .fc-polaroid:nth-child(1) { transform: rotate(-2deg); }
+.future-collage .fc-polaroid:nth-child(2) { transform: rotate(1.5deg); }
+.future-collage .fc-polaroid:nth-child(3) { transform: rotate(-1deg); }
+.future-collage .fc-polaroid .fc-img {
+  width: 100%; height: 140px;
+  border: 3px dashed #D0D8E0;
+  background: #F0F3F6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: #8AA0B3;
+  margin-bottom: 16px;
+}
+.future-collage .fc-polaroid h3 {
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 6px;
+}
+.future-collage .fc-polaroid p {
+  font-size: 16px; color: #6A8A9A;
+  line-height: 1.4;
+}
+.future-collage .fc-polaroid .fc-num {
+  font-size: 14px; color: #0F4464; opacity: 0.3;
+  letter-spacing: 3px;
+  margin-top: 12px;
+}
+
+/* ===== CLOSING: DEPT CARDS FILL ===== */
+.slide-closing {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.slide-closing .closing-title-block {
+  transform: rotate(-0.8deg);
+}
+.slide-closing .closing-title-block h2 {
+  font-size: clamp(44px, 9vw, 80px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 4px;
+}
+.slide-closing .closing-sub {
+  font-size: 22px; opacity: 0.3;
+  letter-spacing: 4px;
+}
+.closing-dept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%; max-width: 900px;
+  position: relative; z-index: 2;
+}
+.closing-dept-grid .cdg-card {
+  border: 6px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  text-align: left;
+  text-decoration: none; color: #FFFFFF;
+  transition: all 0.15s;
+  position: relative;
+}
+.closing-dept-grid .cdg-card:nth-child(1) { transform: rotate(-1.2deg); }
+.closing-dept-grid .cdg-card:nth-child(2) { transform: rotate(1deg); margin-top: 6px; }
+.closing-dept-grid .cdg-card:nth-child(3) { transform: rotate(0.6deg); margin-top: -6px; }
+.closing-dept-grid .cdg-card:nth-child(4) { transform: rotate(-0.8deg); }
+.closing-dept-grid .cdg-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  transform: rotate(0deg) scale(1.03);
+  z-index: 5;
+}
+.closing-dept-grid .cdg-card .cdg-icon {
+  font-size: 40px; margin-bottom: 4px;
+}
+.closing-dept-grid .cdg-card .cdg-name {
+  font-size: 32px; font-weight: 700;
+  letter-spacing: -1px;
+}
+.closing-dept-grid .cdg-card .cdg-desc {
+  font-size: 15px; color: rgba(255,255,255,0.3);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.closing-dept-grid .cdg-card .cdg-arrow {
+  position: absolute; bottom: 20px; right: 24px;
+  font-size: 28px; opacity: 0.15;
+}
+
+/* ---- DECORATIVE ELEMENTS ---- */
+.slide .ghost-block {
+  position: absolute;
+  border: 4px dashed #0F4464;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- KB HINT ---- */
+.kb-hint {
+  position: fixed; bottom: 20px; right: 28px; z-index: 300;
+  font-size: 13px; color: #0F4464;
+  opacity: 0.2; letter-spacing: 2px;
+  pointer-events: none;
+  transform: rotate(-1deg);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 800px) {
+  .slide { padding: 64px 20px 32px; }
+  .about-collage { grid-template-columns: 1fr; }
+  .data-collage { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .data-collage .dc-img { grid-column: span 2; grid-row: auto; min-height: 180px; }
+  .events-collage { grid-template-columns: 1fr; }
+  .voices-guide { font-size: 15px; }
+  .voices-wall { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .voices-wall .voice-chip { padding: 6px 8px; font-size: 12px; }
+  .voices-wall .voice-chip .vc-a { font-size: 10px; }
+  .voices-overlay .vo-card { padding: 28px 24px; width: 92vw; }
+  .voices-overlay .vo-card .vo-q { font-size: 20px; }
+  .voices-overlay .vo-card .vo-a { font-size: 15px; }
+  .future-collage { grid-template-columns: 1fr; }
+  .stats-collage { grid-template-columns: 1fr 1fr; }
+  .closing-dept-grid { grid-template-columns: 1fr; }
+  .closing-dept-grid .cdg-card { margin-top: 0 !important; }
+  .event-detail .ed-flip { padding: 6px; margin: 0 -4px 16px; }
+  .ef-viewport { aspect-ratio: 4/3; }
+  .ef-prev, .ef-next { width: 34px; height: 34px; font-size: 20px; }
+  .ef-prev { left: -17px; } .ef-next { right: -17px; }
+  .ef-strip .ef-slide { padding: 6px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="zine-nav" id="zineNav"></nav>
+
+<!-- ===== COVER ===== -->
+<section class="slide slide-cover" data-index="0">
+  <div class="cover-collage">
+    <div class="cover-block-top">ANNUAL REPORT</div>
+    <div class="cover-logo-center">
+      <img src="photos/about/logo.jpg" alt="LOGO">
+    </div>
+    <h1>三院科协<span class="hl">2025–2026</span></h1>
+    <div class="cover-sub">桂林电子科技大学 · 计算机与信息安全学院</div>
+  </div>
+  <div class="cover-img-float img1"><img src="photos/tuanjian/大合照.jpg" alt="年度合照"></div>
+  <div class="cover-img-float img2"><img src="photos/tuanjian/大合照2.jpg" alt="年度合照2"></div>
+  <div class="cover-img-float img3"><img src="photos/huanjie/换届合照.jpg" alt="换届合照"></div>
+  <div class="cover-img-float img4"><img src="photos/huanjie/合照4.png" alt="合照4"></div>
+  <div class="tape" style="top:40px;left:30%;"></div>
+  <div class="tape" style="bottom:60px;right:25%;transform:rotate(1deg);"></div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="slide" data-index="1">
+  <div class="ghost-block" style="width:300px;height:200px;bottom:40px;right:-40px;transform:rotate(8deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">社团概览</div>
+    <h2>关于三院科协</h2>
+  </div>
+  <div class="about-collage">
+    <div class="ac-text">
+      <p>三院科协（计算机与信息安全学院大学生科技协会）成立于 1993 年，是学院最早的学生科技社团之一。下设软件部、硬件部、多媒体部、安全部、组织部五个方向，覆盖网站与 APP 开发、UI 设计、嵌入式、人工智能和网络安全等领域。</p>
+      <p>每年举办绘蓝杯科技竞赛，组队参加各类技术比赛，同时定期组织技术交流和项目实践。新搭建了飞书知识库，用于沉淀技术文档和活动资料。</p>
+      <p>目前五个部门共有百余名成员，过去一年组织活动 12 场，完成项目 20 余个。</p>
+    </div>
+    <div class="ac-img-stack">
+      <div class="img-main"><img src="photos/about/关于科协图片.jpeg" alt="关于三院科协"></div>
+      <div class="img-ghost"></div>
+    </div>
+  </div>
+  <div class="stats-collage">
+    <div class="sc-item"><div class="sc-num">5</div><div class="sc-lbl">部门</div></div>
+    <div class="sc-item"><div class="sc-num">100+</div><div class="sc-lbl">成员</div></div>
+    <div class="sc-item"><div class="sc-num">1993</div><div class="sc-lbl">成立</div></div>
+    <div class="sc-item"><div class="sc-num">40+</div><div class="sc-lbl">年项目</div></div>
+  </div>
+</section>
+
+<!-- ===== EVENTS ===== -->
+<section class="slide" id="events-top" data-index="2">
+  <div class="ghost-block" style="width:250px;height:180px;top:30px;right:-30px;transform:rotate(6deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">活动回顾</div>
+    <h2>这一年的足迹</h2>
+  </div>
+  <div class="events-collage">
+    <!-- Daily 科协日常 (full width) -->
+    <a href="#event-daily" class="ec-polaroid ec-daily">
+      <span class="ec-daily-icon">📸</span>
+      <div>
+        <div class="ec-date">2025 - 2026</div>
+        <div class="ec-events">科协日常<span class="ec-sub">点滴瞬间 · 共同回忆</span></div>
+      </div>
+    </a>
+    <!-- 1 招新季 -->
+    <a href="#event-1" class="ec-polaroid">
+      <div class="ec-date">2025 · 09</div>
+      <div class="ec-events">科协招新<span class="ec-sub">C 语言培训 · 流动卡座 · 笔试</span></div>
+      <div class="ec-tags"><span>#招新</span><span>#培训</span><span>#纳新</span><span>#摆摊</span></div>
+    </a>
+    <!-- 2 竞赛宣讲 -->
+    <a href="#event-2" class="ec-polaroid">
+      <div class="ec-date">2025 · 11</div>
+      <div class="ec-events">绘蓝杯 · 速码<span class="ec-sub">科技竞赛宣讲 · 个人速码赛</span></div>
+      <div class="ec-tags"><span>#竞赛</span><span>#编程</span><span>#算法</span></div>
+    </a>
+    <!-- 3 技术培训 -->
+    <a href="#event-3" class="ec-polaroid">
+      <div class="ec-date">2025 · 11</div>
+      <div class="ec-events">Git · 验收<span class="ec-sub">版本控制培训 · 项目验收</span></div>
+      <div class="ec-tags"><span>#Git</span><span>#培训</span><span>#项目</span></div>
+    </a>
+    <!-- 4 年末 -->
+    <a href="#event-4" class="ec-polaroid">
+      <div class="ec-date">2025 · 12</div>
+      <div class="ec-events">新年礼物<span class="ec-sub">年末例会 · 新年惊喜</span></div>
+      <div class="ec-tags"><span>#礼物</span><span>#年末</span><span>#温暖</span></div>
+    </a>
+    <!-- 5 动员·新星 -->
+    <a href="#event-5" class="ec-polaroid">
+      <div class="ec-date">2026 · 03</div>
+      <div class="ec-events">换届 · 服创<span class="ec-sub">动员会 · 最佳新人 · ikexie</span></div>
+      <div class="ec-tags"><span>#换届</span><span>#动员</span><span>#新人</span></div>
+    </a>
+    <!-- 6 TRAE -->
+    <a href="#event-6" class="ec-polaroid">
+      <div class="ec-date">2026 · 04</div>
+      <div class="ec-events">TRAE Campus<span class="ec-sub">AI 编程工具进校园</span></div>
+      <div class="ec-tags"><span>#AI</span><span>#编程</span><span>#校园</span></div>
+    </a>
+    <!-- 7 分享 -->
+    <a href="#event-7" class="ec-polaroid">
+      <div class="ec-date">2026 · 04</div>
+      <div class="ec-events">分享 · 大扫除<span class="ec-sub">经验交流 · 实验室整理</span></div>
+      <div class="ec-tags"><span>#分享</span><span>#大扫除</span><span>#实验室</span></div>
+    </a>
+    <!-- 8 团建 -->
+    <a href="#event-8" class="ec-polaroid">
+      <div class="ec-date">2026 · 05</div>
+      <div class="ec-events">大聚餐 · 大合照<span class="ec-sub">学期末团聚 · 全家福</span></div>
+      <div class="ec-tags"><span>#聚餐</span><span>#团建</span><span>#合照</span></div>
+    </a>
+    <!-- 9 毕业 -->
+    <a href="#event-9" class="ec-polaroid">
+      <div class="ec-date">2026 · 06</div>
+      <div class="ec-events">学长学姐毕业照<span class="ec-sub">定格青春 · 前程似锦</span></div>
+      <div class="ec-tags"><span>#毕业</span><span>#青春</span><span>#离别</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== VOICES ===== -->
+<section class="slide" data-index="3">
+  <div class="ghost-block" style="width:280px;height:180px;top:30px;right:-30px;transform:rotate(5deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">成员寄语</div>
+    <h2>听听大家怎么说</h2>
+  </div>
+  <div class="voices-guide"><span>点击卡片查看寄语 · 点击空白处或按 ESC 关闭</span></div>
+  <div class="voices-wall" id="voicesWall"></div>
+  <div class="voices-overlay" id="voicesOverlay">
+    <div class="vo-card" id="voCard">
+      <div class="vo-q"></div>
+      <div class="vo-a"></div>
+    </div>
+    <div class="vo-hint">— 点击任意空白处关闭 —</div>
+  </div>
+</section>
+
+
+<!-- ===== CLOSING ===== -->
+<section class="slide slide-closing" data-index="4">
+  <div class="tape" style="top:60px;left:20%;width:100px;height:28px;"></div>
+  <div class="tape" style="bottom:80px;right:15%;transform:rotate(2deg);width:90px;height:26px;"></div>
+
+  <div class="closing-title-block">
+    <div class="cover-block-top" style="border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.35);margin-bottom:20px;">年度叙事</div>
+    <h2>2025–2026</h2>
+    <div class="closing-sub">三院科协</div>
+  </div>
+
+  <div class="closing-dept-grid">
+    <a href="departments/software/index.html" class="cdg-card">
+      <span class="cdg-name">软件部</span>
+      <div class="cdg-desc">APP · 游戏 · 深度学习</div>
+      <span class="cdg-arrow">↗</span>
+    </a>
+    <a href="departments/multimedia/index.html" class="cdg-card">
+      <span class="cdg-name">多媒体部</span>
+      <div class="cdg-desc">视频 · 设计 · 前后端</div>
+      <span class="cdg-arrow">↗</span>
+    </a>
+    <a href="departments/hardware/index.html" class="cdg-card">
+      <span class="cdg-name">硬件部</span>
+      <div class="cdg-desc">嵌入式 · IoT · 电路</div>
+      <span class="cdg-arrow">↗</span>
+    </a>
+    <a href="departments/security/index.html" class="cdg-card">
+      <span class="cdg-name">安全部</span>
+      <div class="cdg-desc">CTF · 渗透 · 逆向</div>
+      <span class="cdg-arrow">↗</span>
+    </a>
+    <a href="departments/organization/index.html" class="cdg-card">
+      <span class="cdg-name">组织部</span>
+      <div class="cdg-desc">策划 · 管理 · 文化</div>
+      <span class="cdg-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== EVENT DETAIL DAILY: 科协日常 ===== -->
+<section class="event-detail" id="event-daily">
+  <div class="ed-header">
+    <h2>📸 科协日常</h2>
+    <div class="ed-sub">点滴瞬间 · 共同回忆</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">📸 科协日常</div>
+    <p>除了大型活动，科协的日常也充满乐趣与温暖。一起学习、一起干饭、一起成长。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell wide" style="transform:rotate(-0.6deg)"><img src="photos/daily/日常1.jpg" alt="日常"></div>
+    <div class="ed-cell tall" style="transform:rotate(0.8deg)"><img src="photos/daily/2bdeb77aaa81e283e25a8b88bf997507.jpg" alt="日常2"></div>
+    <div class="ed-cell" style="transform:rotate(-0.3deg)"><img src="photos/daily/3896c5d9a46564d8a45df932da41fe43.jpg" alt="日常3"></div>
+    <div class="ed-cell" style="transform:rotate(0.5deg)"><img src="photos/daily/76adb2d29adb25fa19426e4cb9697b19.jpg" alt="日常4"></div>
+    <div class="ed-cell wide" style="transform:rotate(-0.9deg)"><img src="photos/daily/7e054e50bbc75e92dbef010027670c37.jpg" alt="日常5"></div>
+    <div class="ed-cell" style="transform:rotate(0.4deg)"><img src="photos/daily/ab2871885db61bccc270fc5d2f79f8bb.jpg" alt="日常6"></div>
+    <div class="ed-cell" style="transform:rotate(-0.7deg)"><img src="photos/daily/cd91dd3af4a9ed6d99cf03ef3143bb3d.jpg" alt="日常7"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 1: 招新季 ===== -->
+<section class="event-detail" id="event-1">
+  <div class="ed-header">
+    <h2>2025 · 09 招新季</h2>
+    <div class="ed-sub">科协招新 · C 语言培训会 · 流动卡座 · 科协笔试</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">招新季</div>
+    <p>新学期伊始，三院科协面向全院招新。摆摊宣传、流动卡座答疑，经过笔试筛选，一批新鲜血液加入了科协大家庭。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell wide" style="transform:rotate(-0.8deg)"><img src="photos/zhaoxin/招新大部队.jpg" alt="招新大部队"></div>
+    <div class="ed-cell tall" style="transform:rotate(1.2deg)"><img src="photos/zhaoxin/招新vr 2.jpg" alt="招新 VR"></div>
+    <div class="ed-cell" style="transform:rotate(-0.3deg)"><img src="photos/zhaoxin/招新1.jpg" alt="招新现场"></div>
+    <div class="ed-cell" style="transform:rotate(0.6deg)"><img src="photos/zhaoxin/招新 vr.jpg" alt="招新 VR 现场"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 2: 绘蓝杯 · 码到成功 ===== -->
+<section class="event-detail" id="event-2">
+  <div class="ed-header">
+    <h2>2025 · 11 绘蓝杯 · 码到成功</h2>
+    <div class="ed-sub">绘蓝杯科技竞赛宣讲会 · 个人速码竞赛</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">绘蓝杯 · 码到成功</div>
+    <p>绘蓝杯科技竞赛正式启动，同时举办个人速码竞赛，考验编程基本功与算法思维。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell wide" style="transform:rotate(-0.6deg)"><img src="photos/huilanbei/绘蓝杯宣讲.jpg" alt="绘蓝杯宣讲"></div>
+    <div class="ed-cell" style="transform:rotate(0.3deg)"><img src="photos/huilanbei/马到成功颁奖.jpg" alt="码到成功"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 3: Git 培训 · 绘蓝杯验收 ===== -->
+<section class="event-detail" id="event-3">
+  <div class="ed-header">
+    <h2>2025 · 11 Git 培训 · 绘蓝杯验收</h2>
+    <div class="ed-sub">版本控制培训 · 竞赛项目验收</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">Git 培训 · 绘蓝杯验收</div>
+    <p>Git 版本控制专项培训 + 绘蓝杯竞赛项目验收，技术积累与成果展示并行。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell" style="transform:rotate(-1.2deg);grid-column:span 3"><img src="photos/yanshou/绘蓝杯验收.jpg" alt="绘蓝杯验收"></div>
+    <div class="ed-cell wide" style="transform:rotate(0.5deg)"><img src="photos/yanshou/00b91d97d51f9bfb0bc8c93d5c3e42d7.jpg" alt="验收现场"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 4: 新年礼物 ===== -->
+<section class="event-detail" id="event-4">
+  <div class="ed-header">
+    <h2>2025 · 12 新年礼物</h2>
+    <div class="ed-sub">年末例会 · 新年惊喜</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">新年礼物</div>
+    <p>年末科协全体例会上，为成员们准备了新年小礼物，感谢大家一年来的辛勤付出。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell wide" style="transform:rotate(-0.7deg)"><img src="photos/xinnian/新年礼物1.jpg" alt="新年礼物1"></div>
+    <div class="ed-cell" style="transform:rotate(1.1deg)"><img src="photos/xinnian/新年礼物2.jpg" alt="新年礼物2"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 5: 服创动员 · 换届 · ikexie ===== -->
+<section class="event-detail" id="event-5">
+  <div class="ed-header">
+    <h2>2026 · 03 服创动员 · 换届 · ikexie 演讲</h2>
+    <div class="ed-sub">新学期动员 · 科协换届 · 技术分享</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">服创动员 · 换届 · ikexie 演讲</div>
+    <p>新学期服创大赛动员会召开，同期进行了科协换届选举与 ikexie 演讲。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell" style="transform:rotate(-0.7deg)"><img src="photos/huanjie/换届.jpg" alt="换届"></div>
+    <div class="ed-cell" style="transform:rotate(1.1deg)"><img src="photos/huanjie/服创1.jpg" alt="服创动员"></div>
+    <div class="ed-cell tall" style="transform:rotate(-0.3deg)"><img src="photos/huanjie/服创2.jpg" alt="服创2"></div>
+    <div class="ed-cell wide" style="transform:rotate(0.6deg)"><img src="photos/huanjie/换届22.jpg" alt="换届22"></div>
+    <div class="ed-cell" style="transform:rotate(-0.9deg)"><img src="photos/huanjie/换届大例会.jpg" alt="换届大例会"></div>
+    <div class="ed-cell" style="transform:rotate(0.4deg)"><img src="photos/huanjie/合照4.png" alt="合照4"></div>
+    <div class="ed-cell" style="transform:rotate(-0.2deg)"><img src="photos/huanjie/服创3.jpg" alt="服创3"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 6: TRAE on Campus · 最佳新人 ===== -->
+<section class="event-detail" id="event-6">
+  <div class="ed-header">
+    <h2>2026 · 04 TRAE on Campus · 最佳新人</h2>
+    <div class="ed-sub">AI 编程工具进校园 · 优秀新人表彰</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">TRAE on Campus · 最佳新人</div>
+    <p>TRAE AI 编程工具进校园，同期评选本学期最佳新人，ikexie 带来精彩技术演讲。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell" style="transform:rotate(-0.5deg)"><img src="photos/trae/trae.jpg" alt="TRAE"></div>
+    <div class="ed-cell" style="transform:rotate(1deg)"><img src="photos/trae/trae2.jpg" alt="TRAE 现场"></div>
+    <div class="ed-cell tall" style="transform:rotate(-1.2deg)"><img src="photos/trae/最佳新人.jpg" alt="最佳新人"></div>
+    <div class="ed-cell wide" style="transform:rotate(0.3deg)"><img src="photos/trae/最佳新人1.jpg" alt="最佳新人1"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 7: 经验分享会 · 大扫除 ===== -->
+<section class="event-detail" id="event-7">
+  <div class="ed-header">
+    <h2>2026 · 04 经验分享会 · 大扫除</h2>
+    <div class="ed-sub">学习经验交流 · 实验室整理</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">经验分享会 · 大扫除</div>
+    <p>优秀学长学姐分享学习竞赛经验，学期末实验室大扫除整理环境。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell" style="transform:rotate(-0.9deg)"><img src="photos/fenxiang/宣讲会1.jpg" alt="宣讲会"></div>
+    <div class="ed-cell" style="transform:rotate(1.2deg)"><img src="photos/huilanbei/宣讲会22.jpg" alt="宣讲会现场"></div>
+    <div class="ed-cell tall" style="transform:rotate(-0.6deg)"><img src="photos/fenxiang/大扫除1.jpg" alt="大扫除"></div>
+    <div class="ed-cell wide" style="transform:rotate(0.4deg)"><img src="photos/fenxiang/大扫除111.jpg" alt="大扫除2"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 8: 大聚餐 · 大合照 ===== -->
+<section class="event-detail" id="event-8">
+  <div class="ed-header">
+    <h2>2026 · 05 大聚餐 · 大合照</h2>
+    <div class="ed-sub">学期末团聚 · 大家庭合影</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">大聚餐 · 大合照</div>
+    <p>科协大家庭齐聚一堂，学期末大聚餐，用合影定格这一年的温暖回忆。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell" style="transform:rotate(-0.5deg);grid-column:span 3"><img src="photos/tuanjian/大合照.jpg" alt="大合照"></div>
+    <div class="ed-cell" style="transform:rotate(-1deg)"><img src="photos/tuanjian/大聚餐11.jpg" alt="大聚餐"></div>
+    <div class="ed-cell" style="transform:rotate(0.8deg)"><img src="photos/tuanjian/大合照2.jpg" alt="大合照2"></div>
+    <div class="ed-cell" style="transform:rotate(-0.4deg)"><img src="photos/tuanjian/大合照环境.jpg" alt="大合照环境"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<!-- ===== EVENT DETAIL 9: 毕业照 ===== -->
+<section class="event-detail" id="event-9">
+  <div class="ed-header">
+    <h2>2026 · 06 毕业照</h2>
+    <div class="ed-sub">毕业季 · 定格青春</div>
+  </div>
+  <div class="ed-intro">
+    <div class="ed-label">毕业照</div>
+    <p>毕业季来临，用镜头定格学长学姐们在科协的青春记忆。</p>
+  </div>
+  <div class="ed-wall">
+    <div class="ed-cell wide" style="transform:rotate(-1.1deg)"><img src="photos/biye/毕业照1.JPG" alt="毕业照1"></div>
+    <div class="ed-cell tall" style="transform:rotate(1deg)"><img src="photos/biye/立赞毕业合照.jpeg" alt="立赞毕业合照"></div>
+    <div class="ed-cell" style="transform:rotate(-0.4deg)"><img src="photos/biye/app毕业照.jpeg" alt="app 毕业照"></div>
+    <div class="ed-cell" style="transform:rotate(0.6deg)"><img src="photos/biye/毕业照全学长.JPG" alt="毕业照全学长"></div>
+
+    <div class="ed-cell" style="transform:rotate(0.3deg)"><img src="photos/biye/多媒体毕业照.jpeg" alt="多媒体毕业照"></div>
+    <div class="ed-cell" style="transform:rotate(-0.5deg)"><img src="photos/biye/立赞毕业照2.jpeg" alt="立赞毕业照2"></div>
+    <div class="ed-cell wide" style="transform:rotate(0.7deg)"><img src="photos/biye/多媒体毕业照3.jpeg" alt="多媒体毕业照3"></div>
+  </div>
+  <a class="ed-back" href="#events-top">↑ 返回活动总览</a>
+</section>
+
+<div class="kb-hint">SCROLL · ↑↓ 切换</div>
+
+<script>
+const slides = document.querySelectorAll('[data-index]');
+const nav = document.getElementById('zineNav');
+
+slides.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#'; a.dataset.index = s.dataset.index;
+  nav.appendChild(a);
+});
+const dots = nav.querySelectorAll('a');
+
+function updateActive(idx) {
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  // hide nav on first and last slide
+  nav.classList.toggle('hidden', idx === 0 || idx === slides.length - 1);
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      updateActive(parseInt(e.target.dataset.index));
+    }
+  });
+}, { threshold: 0.4 });
+slides.forEach(s => obs.observe(s));
+
+dots.forEach(d => {
+  d.addEventListener('click', e => {
+    e.preventDefault();
+    const idx = parseInt(d.dataset.index);
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.addEventListener('keydown', e => {
+  // When an event-detail is visible, ← → controls the flip viewer instead of slide nav
+  const inDetail = (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && [...document.querySelectorAll('.event-detail')].some(s => {
+    const r = s.getBoundingClientRect();
+    return r.top < window.innerHeight - 80 && r.bottom > 80;
+  });
+  if (e.key === 'ArrowDown' || (e.key === 'ArrowRight' && !inDetail)) {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur < slides.length - 1) slides[cur + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'ArrowUp' || (e.key === 'ArrowLeft' && !inDetail)) {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur > 0) slides[cur - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+updateActive(0);
+
+// ---- Flip viewer: convert .ed-wall to flip viewer + lightbox ----
+(function() {
+  // Lightbox (shared)
+  const lb = document.createElement('div');
+  lb.className = 'ed-lightbox';
+  lb.innerHTML = '<span class="ed-lb-close">&times;</span><span class="ed-lb-prev">‹</span><span class="ed-lb-next">›</span><img class="ed-lb-img" alt=""><div class="ed-lb-counter"></div>';
+  document.body.appendChild(lb);
+  const lbImg = lb.querySelector('.ed-lb-img');
+  const lbClose = lb.querySelector('.ed-lb-close');
+  const lbPrev = lb.querySelector('.ed-lb-prev');
+  const lbNext = lb.querySelector('.ed-lb-next');
+  const lbCounter = lb.querySelector('.ed-lb-counter');
+  let lbImgs = [], lbIdx = 0;
+
+  function openLB(idx, imgs) {
+    lbImgs = imgs; lbIdx = idx;
+    const img = imgs[idx];
+    if (!img) return;
+    lbImg.src = img.src; lbImg.alt = img.alt;
+    lbCounter.textContent = (idx + 1) + ' / ' + imgs.length;
+    lb.classList.add('open');
+  }
+  lbNext.onclick = function() {
+    lbIdx = (lbIdx + 1) % lbImgs.length;
+    openLB(lbIdx, lbImgs);
+  };
+  lbPrev.onclick = function() {
+    lbIdx = (lbIdx - 1 + lbImgs.length) % lbImgs.length;
+    openLB(lbIdx, lbImgs);
+  };
+  lb.onclick = function(e) {
+    if (e.target === lb || e.target === lbClose) lb.classList.remove('open');
+  };
+
+  // Build flip viewers from each .ed-wall
+  const walls = document.querySelectorAll('.event-detail .ed-wall');
+  const rotations = ['ef-r1','ef-r2','ef-r3'];
+
+  walls.forEach(function(wall, wi) {
+    const imgs = [...wall.querySelectorAll('img')].map(function(img) {
+      return { src: img.src, alt: img.alt };
+    });
+    if (!imgs.length) return;
+
+    const flip = document.createElement('div');
+    flip.className = 'ed-flip ' + rotations[wi % 3];
+
+    // Viewport + strip
+    const vp = document.createElement('div');
+    vp.className = 'ef-viewport';
+    const strip = document.createElement('div');
+    strip.className = 'ef-strip';
+    imgs.forEach(function(p, i) {
+      const slide = document.createElement('div');
+      slide.className = 'ef-slide';
+      const img = document.createElement('img');
+      img.src = p.src; img.alt = p.alt;
+      img.loading = 'lazy';
+      img.onclick = function(e) { e.stopPropagation(); openLB(i, imgs); };
+      slide.appendChild(img);
+      strip.appendChild(slide);
+    });
+    vp.appendChild(strip);
+    flip.appendChild(vp);
+
+    // Arrows
+    const prev = document.createElement('button');
+    prev.className = 'ef-prev'; prev.innerHTML = '‹';
+    const next = document.createElement('button');
+    next.className = 'ef-next'; next.innerHTML = '›';
+    let ci = 0;
+    function upd() {
+      strip.style.transform = 'translateX(-' + (ci * 100) + '%)';
+      var s = flip.querySelector('.ef-counter strong');
+      if (s) s.textContent = ci + 1;
+      flip.querySelectorAll('.ef-dots span').forEach(function(d, i) {
+        d.classList.toggle('active', i === ci);
+      });
+    }
+    prev.onclick = function() { ci = (ci - 1 + imgs.length) % imgs.length; upd(); };
+    next.onclick = function() { ci = (ci + 1) % imgs.length; upd(); };
+    flip.appendChild(prev);
+    flip.appendChild(next);
+
+    // Bar: counter + dots
+    var bar = document.createElement('div');
+    bar.className = 'ef-bar';
+    var cnt = document.createElement('div');
+    cnt.className = 'ef-counter';
+    cnt.innerHTML = '<strong>1</strong> / ' + imgs.length;
+    bar.appendChild(cnt);
+    var dots = document.createElement('div');
+    dots.className = 'ef-dots';
+    imgs.forEach(function(_, i) {
+      var d = document.createElement('span');
+      d.onclick = function() { ci = i; upd(); };
+      dots.appendChild(d);
+    });
+    bar.appendChild(dots);
+    flip.appendChild(bar);
+    dots.querySelector('span').classList.add('active');
+
+    wall.parentNode.replaceChild(flip, wall);
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') lb.classList.remove('open');
+    if (lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      var detail = [...document.querySelectorAll('.event-detail')].find(function(s) {
+        var r = s.getBoundingClientRect();
+        return r.top < window.innerHeight - 80 && r.bottom > 80;
+      });
+      if (detail) {
+        e.preventDefault();
+        var flip = detail.querySelector('.ed-flip');
+        if (!flip) return;
+        var btn = e.key === 'ArrowRight'
+          ? flip.querySelector('.ef-next')
+          : flip.querySelector('.ef-prev');
+        if (btn) btn.click();
+      }
+    }
+  });
+})();
+
+// ---- Voices Wall: click to focus, click outside / ESC to close ----
+const voiceQuotes = [
+  { q:'从零到一做出自己的游戏，成就感无可替代。', a:'小张', d:'软件部' },
+  { q:'CTF 让我发现了兴趣所在，每场都学到新东西。', a:'小黄', d:'安全部' },
+  { q:'Game Jam 48小时不睡觉做游戏，超级爽！', a:'小陈', d:'软件部' },
+  { q:'第一次焊板子就点亮LED，太有成就感了。', a:'小王', d:'硬件部' },
+  { q:'多媒体部让我走进动态视觉的世界。', a:'小刘', d:'多媒体部' },
+  { q:'从校内CTF到省级赛，每次都热血沸腾。', a:'小周', d:'安全部' },
+  { q:'Arduino小车比赛，我的车跑得最快！', a:'小郭', d:'硬件部' },
+  { q:'最大收获不是技术，是志同道合的朋友。', a:'小唐', d:'软件部' },
+  { q:'大一加入科协是我大学最正确的决定。', a:'小曹', d:'硬件部' },
+  { q:'中秋游戏之夜80人一起玩，氛围太棒了。', a:'小彭', d:'多媒体部' },
+  { q:'密码学太美了，每次破解都像解谜。', a:'小熊', d:'安全部' },
+  { q:'希望明年GameJam能拿奖！', a:'小金', d:'软件部' },
+  { q:'视觉设计沙龙让我重新认识排版的力量。', a:'小徐', d:'多媒体部' },
+  { q:'社团项目经历帮我拿到了实习offer。', a:'小马', d:'软件部' },
+  { q:'学生会+科协，双倍忙碌双倍收获。', a:'小胡', d:'硬件部' },
+  { q:'Web安全入门比想象简单，深入比想象难。', a:'小姚', d:'安全部' },
+  { q:'摄影外拍让我重新发现了校园的美。', a:'小石', d:'多媒体部' },
+  { q:'RE逆向让我看到二进制世界的另一面。', a:'小韩', d:'安全部' },
+];
+
+(function(){
+  const wall = document.getElementById('voicesWall');
+  const overlay = document.getElementById('voicesOverlay');
+  const voCard = document.getElementById('voCard');
+  if (!wall || !overlay) return;
+
+  // Build chips
+  voiceQuotes.forEach((item) => {
+    const rot = ((Math.random() * 4) - 2).toFixed(1);
+    const chip = document.createElement('div');
+    chip.className = 'voice-chip';
+    chip.style.transform = `rotate(${rot}deg)`;
+    chip.innerHTML = `<div class="vc-q">${item.q}</div><div class="vc-a"><strong>${item.a}</strong> · ${item.d}</div>`;
+
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      voCard.querySelector('.vo-q').textContent = item.q;
+      voCard.querySelector('.vo-a').innerHTML = `<strong>${item.a}</strong> · ${item.d}`;
+      overlay.classList.add('active');
+    });
+
+    wall.appendChild(chip);
+  });
+
+  // Close: click overlay backdrop / hint text
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('vo-hint')) {
+      overlay.classList.remove('active');
+    }
+  });
+
+  // Close: ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') overlay.classList.remove('active');
+  });
+})();
+</script>
+</body>
+</html>
+
+

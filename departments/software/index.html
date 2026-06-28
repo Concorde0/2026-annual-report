@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>软件部 · 年度报告 | 三院科协</title>
+<!--
+  System: Collage Brutalism — matching the main report
+  Type scale: Maple Mono · weight 400/700
+  Color: #0F4464 (navy) on #FFFFFF · accent #E8EDF2
+  Layout: rotated blocks, thick borders, zine-style misalignment
+-->
+<style>
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Maple';
+  src: url('https://cdn.jsdelivr.net/npm/maple-mono@1.0.1/dist/MapleMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+body {
+  font-family: 'Maple', 'Courier New', monospace;
+  background: #F4F2EE;
+  color: #0F4464;
+  line-height: 1.35;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: #0F4464; color: #FFFFFF; }
+
+/* ---- NAV DOTS ---- */
+.zine-nav {
+  position: fixed; left: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 12px;
+  transition: opacity 0.35s;
+}
+.zine-nav.hidden { opacity: 0; pointer-events: none; }
+.zine-nav a {
+  display: block; width: 12px; height: 12px;
+  background: #0F4464; opacity: 0.15;
+  transform: rotate(45deg);
+  transition: all 0.25s;
+}
+.zine-nav a.active { opacity: 0.8; transform: rotate(45deg) scale(1.6); }
+.zine-nav a:hover { opacity: 0.5; }
+
+/* ---- K8 HINT ---- */
+.kb-hint {
+  position: fixed; bottom: 20px; right: 28px; z-index: 300;
+  font-size: 13px; color: #0F4464;
+  opacity: 0.2; letter-spacing: 2px;
+  pointer-events: none;
+  transform: rotate(-1deg);
+}
+
+/* ---- SLIDE BASE ---- */
+.slide {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: 64px 48px;
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+
+/* ---- COVER ---- */
+.dept-cover {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+}
+.dept-cover .dc-inner {
+  position: relative; z-index: 2;
+  max-width: 800px;
+  display: flex; flex-direction: column; align-items: center;
+}
+.dept-cover .dc-breadcrumb {
+  display: inline-block;
+  border: 4px solid rgba(255,255,255,0.2);
+  padding: 8px 24px;
+  font-size: 14px; letter-spacing: 3px;
+  transform: rotate(-1deg);
+  margin-bottom: 24px;
+}
+.dept-cover .dc-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.dept-cover .dc-icon {
+  width: 80px; height: 80px;
+  border: 5px solid rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin-bottom: 20px;
+  transform: rotate(2deg);
+}
+.dept-cover h1 {
+  font-size: clamp(56px, 10vw, 100px);
+  font-weight: 700;
+  letter-spacing: -2px;
+  transform: rotate(-0.5deg);
+  line-height: 1;
+}
+.dept-cover .dc-sub {
+  font-size: 22px; opacity: 0.4;
+  margin-top: 16px; letter-spacing: 3px;
+  transform: rotate(0.3deg);
+}
+.dept-cover .dc-stats {
+  display: flex; gap: 32px; margin-top: 28px;
+}
+.dept-cover .dc-stats span {
+  font-size: 18px; opacity: 0.5;
+  letter-spacing: 2px;
+}
+.dept-cover .dc-img-float {
+  position: absolute;
+  border: 5px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: rgba(255,255,255,0.1);
+}
+.dept-cover .dc-img-float.f1 {
+  width: 200px; height: 160px;
+  top: 20%; right: -30px;
+  transform: rotate(4deg);
+}
+.dept-cover .dc-img-float.f2 {
+  width: 160px; height: 120px;
+  bottom: 15%; left: -20px;
+  transform: rotate(-3deg);
+}
+
+/* ---- COLLAGE HEADER ---- */
+.collage-header {
+  position: relative; z-index: 2;
+  margin-bottom: 24px;
+  transform: rotate(-0.5deg);
+}
+.collage-header .ch-tag {
+  display: inline-block;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 5px;
+  border: 4px solid #0F4464;
+  padding: 6px 18px;
+  margin-bottom: 10px;
+  transform: rotate(-1.5deg);
+}
+.collage-header h2 {
+  font-size: clamp(36px, 7vw, 64px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+/* ---- DIRECTION GRID ---- */
+.dir-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 20px;
+  flex: 1; position: relative; z-index: 2;
+  padding: 16px 0;
+}
+.dir-grid .dir-card {
+  border: 6px solid #0F4464;
+  background: #FFFFFF;
+  padding: 40px 32px;
+  display: flex; flex-direction: column;
+  transition: all 0.15s;
+  text-decoration: none; color: inherit;
+  cursor: pointer;
+}
+.dir-grid .dir-card:nth-child(1) { transform: rotate(-0.8deg); }
+.dir-grid .dir-card:nth-child(2) { transform: rotate(0.6deg); }
+.dir-grid .dir-card:nth-child(3) { transform: rotate(-0.4deg); }
+.dir-grid .dir-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.02);
+  z-index: 5;
+}
+.dir-grid .dir-card:hover .dir-desc { color: rgba(255,255,255,0.7); }
+.dir-grid .dir-card:hover .dir-count { border-color: rgba(255,255,255,0.2); }
+.dir-grid .dir-card .dir-icon {
+  font-size: 42px; margin-bottom: 10px;
+}
+.dir-grid .dir-card .dir-name {
+  font-size: 32px; font-weight: 700; margin-bottom: 8px;
+}
+.dir-grid .dir-card .dir-desc {
+  font-size: 18px; color: #6A8A9A; line-height: 1.55;
+  flex: 1;
+}
+.dir-grid .dir-card .dir-count {
+  margin-top: auto; padding-top: 16px;
+  font-size: 16px; font-weight: 700;
+  border-top: 3px solid rgba(15,68,100,0.1);
+}
+
+/* ---- PROJECT LIST ---- */
+.proj-list {
+  display: flex; flex-direction: column;
+  gap: 10px;
+  flex: 1; position: relative; z-index: 2;
+  justify-content: center;
+}
+.proj-list .proj-card {
+  border: 5px solid #0F4464;
+  background: #FFFFFF;
+  padding: 20px 24px;
+  display: flex;
+  gap: 16px;
+  transition: all 0.15s;
+  position: relative;
+}
+.proj-list .proj-card:nth-child(odd) { transform: rotate(-0.3deg); }
+.proj-list .proj-card:nth-child(even) { transform: rotate(0.4deg); }
+.proj-list .proj-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.01);
+  z-index: 5;
+}
+.proj-list .proj-card:hover .proj-meta,
+.proj-list .proj-card:hover .proj-desc { color: rgba(255,255,255,0.7); }
+.proj-list .proj-card:hover .proj-tags span {
+  border-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.7);
+}
+.proj-list .proj-card .proj-thumb {
+  width: 100px; min-height: 80px;
+  border: 3px dashed #0F4464;
+  background: #F0F3F6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.proj-list .proj-card:hover .proj-thumb {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.proj-list .proj-card .proj-info { flex: 1; min-width: 0; }
+.proj-list .proj-card .proj-title { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.proj-list .proj-card .proj-meta {
+  font-size: 12px; color: #6A8A9A; margin-bottom: 4px;
+}
+.proj-list .proj-card .proj-desc {
+  font-size: 14px; color: #6A8A9A; line-height: 1.5;
+}
+.proj-list .proj-card .proj-tags {
+  display: flex; gap: 4px; margin-top: 6px; flex-wrap: wrap;
+}
+.proj-list .proj-card .proj-tags span {
+  padding: 2px 10px; border: 2px solid rgba(15,68,100,0.15);
+  font-size: 11px; color: #0F4464;
+}
+
+/* ---- GAME GRID (sticky-note blocks) ---- */
+.game-grid {
+  flex: 1; position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  align-content: stretch;
+  padding: 2px 0;
+}
+.game-grid.four-block {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.game-grid .game-block {
+  border: 5px solid rgba(15,68,100,0.22);
+  background: #FFFFFF;
+  padding: 24px 22px 18px;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+.game-grid.four-block .game-block {
+  padding: 36px 32px 30px;
+}
+.game-grid .game-block::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg, #0F4464 0px, #0F4464 16px, transparent 16px, transparent 20px
+  );
+  opacity: 0.15;
+}
+.game-grid .game-block:hover {
+  border-color: #0F4464;
+  box-shadow: 0 0 0 8px rgba(15,68,100,0.06);
+}
+.game-grid .game-block:active { transform: scale(0.97); }
+.game-grid .game-block:nth-child(1) { transform: rotate(-0.4deg); }
+.game-grid .game-block:nth-child(2) { transform: rotate(0.6deg); }
+.game-grid .game-block:nth-child(3) { transform: rotate(-0.3deg); }
+.game-grid .game-block:nth-child(4) { transform: rotate(0.5deg); }
+.game-grid .game-block:nth-child(5) { transform: rotate(0.3deg); }
+.game-grid .game-block:nth-child(6) { transform: rotate(-0.5deg); }
+.game-grid .game-block:nth-child(7) { transform: rotate(-0.2deg); }
+.game-grid .game-block:nth-child(8) { transform: rotate(0.4deg); }
+.game-grid .gb-num {
+  font-size: 18px; font-weight: 700; color: #9AB0BE;
+  letter-spacing: 2px; margin-bottom: 4px;
+}
+.game-grid.four-block .gb-num {
+  font-size: 24px; margin-bottom: 8px;
+}
+.game-grid .gb-name {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700; line-height: 1.15; margin-bottom: 4px;
+}
+.game-grid.four-block .gb-name {
+  font-size: clamp(36px, 4.5vw, 56px);
+  margin-bottom: 8px;
+}
+.game-grid .gb-author {
+  font-size: 18px; color: #6A8A9A; font-weight: 700;
+}
+.game-grid.four-block .gb-author {
+  font-size: 22px;
+}
+.game-grid .gb-desc {
+  font-size: 21px; color: #2A5A6A;
+  margin-bottom: 4px; line-height: 1.3;
+}
+.game-grid.four-block .gb-desc {
+  font-size: 30px;
+}
+.game-grid .gb-date {
+  font-size: 18px; color: #4A7A8A;
+  letter-spacing: 1px;
+  flex: 1; display: flex; align-items: flex-end;
+  padding-bottom: 2px;
+}
+.game-grid.four-block .gb-date {
+  font-size: 24px;
+}
+.game-grid .gb-tags {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px;
+}
+.game-grid.four-block .gb-tags {
+  gap: 8px; margin-top: 16px;
+}
+.game-grid .gb-tags span {
+  padding: 6px 18px;
+  border: 3px solid rgba(15,68,100,0.15);
+  font-size: 16px; line-height: 1.3;
+}
+.game-grid.four-block .gb-tags span {
+  padding: 10px 26px;
+  font-size: 20px;
+}
+.game-grid .game-block:hover .gb-tags span {
+  border-color: rgba(15,68,100,0.35);
+}
+.game-grid .game-block.ghost {
+  border-style: dashed;
+  opacity: 0.45;
+  cursor: default;
+  background: transparent;
+}
+.game-grid .game-block.ghost:hover {
+  box-shadow: none;
+  border-color: rgba(15,68,100,0.22);
+}
+
+/* ---- CTA LINK ---- */
+.cta-wrap {
+  text-align: center; margin-top: 20px;
+  position: relative; z-index: 2;
+}
+.cta-link {
+  display: inline-block;
+  border: 5px solid #0F4464;
+  background: #0F4464; color: #FFFFFF;
+  padding: 14px 36px;
+  font-size: 20px; font-weight: 700;
+  text-decoration: none;
+  transform: rotate(0.5deg);
+  transition: all 0.15s;
+  font-family: 'Maple', 'Courier New', monospace;
+}
+.cta-link:hover {
+  background: #FFFFFF; color: #0F4464;
+  transform: rotate(0deg) scale(1.03);
+}
+
+/* ---- MEMBER GRID ---- */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex: 1; position: relative; z-index: 2;
+  align-content: center;
+}
+.member-grid .member-card {
+  border: 5px solid #0F4464;
+  background: #FFFFFF;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.15s;
+}
+.member-grid .member-card:nth-child(1) { transform: rotate(-0.8deg); }
+.member-grid .member-card:nth-child(2) { transform: rotate(0.6deg); }
+.member-grid .member-card:nth-child(3) { transform: rotate(-0.4deg); }
+.member-grid .member-card:nth-child(4) { transform: rotate(1deg); }
+.member-grid .member-card:nth-child(5) { transform: rotate(-0.6deg); }
+.member-grid .member-card:nth-child(6) { transform: rotate(0.3deg); }
+.member-grid .member-card:hover {
+  background: #0F4464; color: #FFFFFF;
+  transform: rotate(0deg) scale(1.03);
+  z-index: 5;
+}
+.member-grid .member-card .avatar {
+  width: 52px; height: 52px;
+  border: 3px solid #0F4464;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin: 0 auto 8px;
+}
+.member-grid .member-card:hover .avatar {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+}
+.member-grid .member-card .name { font-size: 16px; font-weight: 700; }
+.member-grid .member-card .role { font-size: 13px; color: #6A8A9A; margin-top: 2px; }
+.member-grid .member-card:hover .role { color: rgba(255,255,255,0.6); }
+
+/* ---- CLOSING DEPT NAV ---- */
+.slide-closing {
+  background: #0F4464; color: #FFFFFF;
+  justify-content: center; align-items: center;
+  text-align: center;
+  gap: 40px;
+}
+.slide-closing .closing-title-block { transform: rotate(-0.8deg); }
+.slide-closing .closing-title-block h2 {
+  font-size: clamp(44px, 9vw, 80px);
+  font-weight: 700; letter-spacing: -2px;
+  margin-bottom: 4px;
+}
+.slide-closing .closing-sub {
+  font-size: 22px; opacity: 0.3; letter-spacing: 4px;
+}
+.closing-dept-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; width: 100%; max-width: 900px;
+  position: relative; z-index: 2;
+}
+.closing-dept-grid .cdg-card {
+  border: 6px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.03);
+  padding: 36px 32px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  text-align: left; text-decoration: none; color: #FFFFFF;
+  transition: all 0.15s; position: relative;
+}
+.closing-dept-grid .cdg-card:nth-child(1) { transform: rotate(-1.2deg); }
+.closing-dept-grid .cdg-card:nth-child(2) { transform: rotate(1deg); margin-top: 6px; }
+.closing-dept-grid .cdg-card:nth-child(3) { transform: rotate(0.6deg); margin-top: -6px; }
+.closing-dept-grid .cdg-card:nth-child(4) { transform: rotate(-0.8deg); }
+.closing-dept-grid .cdg-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  transform: rotate(0deg) scale(1.03); z-index: 5;
+}
+.closing-dept-grid .cdg-card .cdg-icon { font-size: 40px; margin-bottom: 4px; }
+.closing-dept-grid .cdg-card .cdg-name { font-size: 32px; font-weight: 700; letter-spacing: -1px; }
+.closing-dept-grid .cdg-card .cdg-desc {
+  font-size: 15px; color: rgba(255,255,255,0.3);
+  letter-spacing: 1px; margin-top: 4px;
+}
+.closing-dept-grid .cdg-card .cdg-arrow {
+  position: absolute; bottom: 20px; right: 24px;
+  font-size: 28px; opacity: 0.15;
+}
+
+/* ---- DECORATIVE ---- */
+.slide .ghost-block {
+  position: absolute;
+  border: 4px dashed #0F4464;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 800px) {
+  .slide { padding: 60px 20px 32px; }
+  .dir-grid { grid-template-columns: 1fr; }
+  .dir-grid .dir-card { margin-top: 0 !important; }
+  .proj-list .proj-card { flex-direction: column; }
+  .proj-list .proj-card .proj-thumb { width: 100%; min-height: 60px; }
+  .game-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .member-grid { grid-template-columns: 1fr 1fr; }
+  .dept-cover .dc-stats { flex-direction: column; gap: 8px; }
+  .closing-dept-grid { grid-template-columns: 1fr; }
+  .closing-dept-grid .cdg-card { margin-top: 0 !important; }
+}
+@media (max-width: 500px) {
+  .game-grid { grid-template-columns: 1fr; }
+}
+/* ---- SHORT VIEWPORT (e.g. 1080p) — tighten to avoid overflow ---- */
+@media (max-height: 1150px) {
+  .slide { padding: 40px 36px; }
+  .collage-header { margin-bottom: 14px; }
+  .collage-header h2 { font-size: clamp(28px, 5vw, 48px); }
+  .game-grid { gap: 8px; }
+  .game-grid .game-block { padding: 18px 16px 14px; }
+  .game-grid.four-block .game-block { padding: 26px 24px 22px; }
+  .game-grid .gb-num { font-size: 15px; margin-bottom: 3px; }
+  .game-grid.four-block .gb-num { font-size: 20px; margin-bottom: 5px; }
+  .game-grid .gb-name { font-size: clamp(20px, 2.5vw, 32px); margin-bottom: 3px; }
+  .game-grid.four-block .gb-name { font-size: clamp(26px, 3.5vw, 44px); margin-bottom: 5px; }
+  .game-grid .gb-author { font-size: 15px; }
+  .game-grid.four-block .gb-author { font-size: 18px; }
+  .game-grid .gb-desc { font-size: 16px; margin-bottom: 2px; }
+  .game-grid.four-block .gb-desc { font-size: 22px; }
+  .game-grid .gb-date { font-size: 14px; padding-bottom: 1px; }
+  .game-grid.four-block .gb-date { font-size: 18px; }
+  .game-grid .gb-tags { margin-top: 8px; gap: 4px; }
+  .game-grid.four-block .gb-tags { margin-top: 10px; gap: 6px; }
+  .game-grid .gb-tags span { padding: 4px 14px; font-size: 13px; }
+  .game-grid.four-block .gb-tags span { padding: 6px 18px; font-size: 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="zine-nav" id="zineNav"></nav>
+
+<!-- ===== COVER ===== -->
+<section class="slide dept-cover" data-index="0">
+  <div class="dc-inner">
+    <div class="dc-breadcrumb"><a href="../../main.html">← 年度报告</a></div>
+    <h1>软件部</h1>
+    <div class="dc-stats">
+      <span>2 名成员</span>
+      <span>3 个方向</span>
+      <span>100 个项目</span>
+    </div>
+  </div>
+  <div class="dc-img-float f1">[ 软件部合影 ]</div>
+  <div class="dc-img-float f2">[ 开发日常 ]</div>
+</section>
+
+<!-- ===== 三大方向 ===== -->
+<section class="slide" data-index="1">
+  <div class="ghost-block" style="width:300px;height:200px;bottom:20px;right:-40px;transform:rotate(6deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">方向概览</div>
+    <h2>三大方向，各有所长</h2>
+  </div>
+  <div class="dir-grid">
+    <a href="#app" class="dir-card">
+      <div class="dir-name">APP 开发</div>
+      <div class="dir-desc">我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介。</div>
+      <div class="dir-count">4 个项目 →</div>
+    </a>
+    <a href="#game" class="dir-card">
+      <div class="dir-name">游戏开发</div>
+      <div class="dir-desc">Unity / Godot 引擎双线并行，Game Jam 参赛主力。从 2D 平台跳跃到 3D Roguelike，6 款作品各具特色。</div>
+      <div class="dir-count">8 个项目 →</div>
+    </a>
+    <a href="#dl" class="dir-card">
+      <div class="dir-name">深度学习</div>
+      <div class="dir-desc">我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介我是简介</div>
+      <div class="dir-count">2 个项目 →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== APP 开发 ===== -->
+<section class="slide" data-index="2" id="app">
+  <div class="ghost-block" style="width:220px;height:280px;top:40px;left:-30px;transform:rotate(-5deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">方向 01</div>
+    <h2>APP 开发</h2>
+  </div>
+  <div class="proj-list">
+    <div class="game-grid four-block">
+      <div class="game-block">
+        <div class="gb-num">01</div>
+        <div class="gb-name">社团助手 APP</div>
+        <div class="gb-author">小明 小红 阿杰 · 2025.09 — 2026.03</div>
+        <div class="gb-tags"><span>Flutter</span><span>Dart</span><span>Firebase</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">02</div>
+        <div class="gb-name">课表伴侣</div>
+        <div class="gb-author">小李 小王 · 2026.01 — 2026.05</div>
+        <div class="gb-tags"><span>React Native</span><span>TypeScript</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">03</div>
+        <div class="gb-name">单词打卡</div>
+        <div class="gb-author">小陈 · 2026.03 — 2026.06</div>
+        <div class="gb-tags"><span>Flutter</span><span>SQLite</span></div>
+      </div>
+      <div class="game-block ghost">
+        <div class="gb-num">04</div>
+        <div class="gb-name">更多项目</div>
+        <div class="gb-author">筹备中 · 欢迎加入</div>
+        <div class="gb-tags"><span>敬请期待</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 游戏开发 ===== -->
+<section class="slide" data-index="3" id="game">
+  <div class="ghost-block" style="width:260px;height:170px;top:20px;right:-30px;transform:rotate(4deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">方向 02</div>
+    <h2>游戏开发</h2>
+  </div>
+  <div class="proj-list">
+    <div class="game-grid">
+      <div class="game-block">
+        <div class="gb-num">01</div>
+        <div class="gb-name">Dotective</div>
+        <div class="gb-author">刘宁宇</div>
+        <div class="gb-desc">侦探解谜</div>
+        <div class="gb-date">2026.02</div>
+        <div class="gb-tags"><span>Unity3D</span><span>解谜</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">02</div>
+        <div class="gb-name">视界回廊</div>
+        <div class="gb-author">刘宁宇、孙浩然等6人</div>
+        <div class="gb-desc">潜行解谜</div>
+        <div class="gb-date">2026.04 — 2026.05</div>
+        <div class="gb-tags"><span>Unity</span><span>潜行</span><span>GameJam</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">03</div>
+        <div class="gb-name">Car</div>
+        <div class="gb-author">刘宁宇</div>
+        <div class="gb-desc">3D 跑酷</div>
+        <div class="gb-date">2025.12</div>
+        <div class="gb-tags"><span>Unity3D</span><span>Perlin Noise</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">04</div>
+        <div class="gb-name">TraeDemo</div>
+        <div class="gb-author">刘宁宇</div>
+        <div class="gb-desc">类吸血鬼幸存者</div>
+        <div class="gb-date">2026.04</div>
+        <div class="gb-tags"><span>Unity</span><span>AI 辅助</span><span>限时开发</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">05</div>
+        <div class="gb-name">点到为止</div>
+        <div class="gb-author">欧阳宸诚、孙浩然、周可卿</div>
+        <div class="gb-desc">解谜</div>
+        <div class="gb-date">2026.02</div>
+        <div class="gb-tags"><span>Unity</span><span>解谜</span><span>GameJam</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">06</div>
+        <div class="gb-name">fade2d</div>
+        <div class="gb-author">孙浩然</div>
+        <div class="gb-desc">平台跳跃</div>
+        <div class="gb-date">2026.10 — 2026.12</div>
+        <div class="gb-tags"><span>Unity</span><span>平台跳跃</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">07</div>
+        <div class="gb-name">艾尔登法环</div>
+        <div class="gb-author">刘宁宇</div>
+        <div class="gb-desc">游戏复刻</div>
+        <div class="gb-date">2025.06 — 2025.09</div>
+        <div class="gb-tags"><span>Unity3D</span><span>重制</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">08</div>
+        <div class="gb-name">OpenGL 渲染器</div>
+        <div class="gb-author">刘宁宇</div>
+        <div class="gb-desc">渲染管线</div>
+        <div class="gb-date">2026.03</div>
+        <div class="gb-tags"><span>C++</span><span>OpenGL</span><span>图形学</span></div>
+      </div>
+  </div>
+  <div class="cta-wrap">
+    <a href="games/index.html" class="cta-link">在线试玩全部作品 →</a>
+  </div>
+</section>
+
+<!-- ===== 深度学习 ===== -->
+<section class="slide" data-index="4" id="dl">
+  <div class="ghost-block" style="width:200px;height:250px;bottom:30px;left:-20px;transform:rotate(-3deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">方向 03</div>
+    <h2>深度学习</h2>
+  </div>
+  <div class="proj-list">
+    <div class="game-grid four-block">
+      <div class="game-block">
+        <div class="gb-num">01</div>
+        <div class="gb-name">校园猫狗识别</div>
+        <div class="gb-author">老刘 小孙 · 准确率 92% · 2025.10 — 2025.12</div>
+        <div class="gb-tags"><span>PyTorch</span><span>ResNet</span><span>ONNX</span></div>
+      </div>
+      <div class="game-block">
+        <div class="gb-num">02</div>
+        <div class="gb-name">AI 对联生成器</div>
+        <div class="gb-author">小周 小吴 · 最佳人气奖 · 2026.01 — 2026.03</div>
+        <div class="gb-tags"><span>GPT-2</span><span>Transformers</span><span>Flask</span></div>
+      </div>
+      <div class="game-block ghost">
+        <div class="gb-num">03</div>
+        <div class="gb-name">模型压缩研究</div>
+        <div class="gb-author">研究组 · 进行中</div>
+        <div class="gb-tags"><span>量化</span><span>剪枝</span></div>
+      </div>
+      <div class="game-block ghost">
+        <div class="gb-num">04</div>
+        <div class="gb-name">更多项目</div>
+        <div class="gb-author">筹备中 · 欢迎加入</div>
+        <div class="gb-tags"><span>敬请期待</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 成员 ===== -->
+<section class="slide" data-index="5">
+  <div class="ghost-block" style="width:300px;height:150px;top:50px;right:-20px;transform:rotate(5deg);"></div>
+  <div class="collage-header">
+    <div class="ch-tag">团队</div>
+    <h2>软件部的小伙伴们</h2>
+  </div>
+  <div class="member-grid">
+    <div class="member-card"><div class="avatar">A</div><div class="name">张三</div><div class="role">部长 · 游戏开发</div></div>
+    <div class="member-card"><div class="avatar">B</div><div class="name">小红</div><div class="role">副部长 · APP 开发</div></div>
+    <div class="member-card"><div class="avatar">C</div><div class="name">老刘</div><div class="role">干事 · 深度学习</div></div>
+    <div class="member-card"><div class="avatar">D</div><div class="name">小李</div><div class="role">干事 · APP 开发</div></div>
+    <div class="member-card"><div class="avatar">E</div><div class="name">阿强</div><div class="role">干事 · 游戏开发</div></div>
+    <div class="member-card"><div class="avatar">F</div><div class="name">小周</div><div class="role">干事 · 深度学习</div></div>
+  </div>
+</section>
+
+<!-- ===== 部门导航 ===== -->
+<section class="slide slide-closing" data-index="6">
+  <div class="closing-title-block">
+    <h2>其他部门</h2>
+    <div class="closing-sub">EXPLORE MORE</div>
+  </div>
+  <div class="closing-dept-grid">
+    <a href="../software/index.html" class="cdg-card">
+      <div class="cdg-name">软件部</div>
+      <div class="cdg-desc">APP · 游戏 · 深度学习</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../multimedia/index.html" class="cdg-card">
+      <div class="cdg-name">多媒体部</div>
+      <div class="cdg-desc">视频 · 设计 · 前后端</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../hardware/index.html" class="cdg-card">
+      <div class="cdg-name">硬件部</div>
+      <div class="cdg-desc">嵌入式 · IoT · 电路</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../security/index.html" class="cdg-card">
+      <div class="cdg-name">安全部</div>
+      <div class="cdg-desc">CTF · 渗透 · 逆向</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+    <a href="../organization/index.html" class="cdg-card">
+      <div class="cdg-name">组织部</div>
+      <div class="cdg-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<div class="kb-hint">SCROLL · ↑↓ 切换</div>
+
+<script>
+const slides = document.querySelectorAll('[data-index]');
+const nav = document.getElementById('zineNav');
+
+slides.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#'; a.dataset.index = s.dataset.index;
+  nav.appendChild(a);
+});
+const dots = nav.querySelectorAll('a');
+
+function updateActive(idx) {
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  nav.classList.toggle('hidden', idx === 0 || idx === slides.length - 1);
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      updateActive(parseInt(e.target.dataset.index));
+    }
+  });
+}, { threshold: 0.4 });
+slides.forEach(s => obs.observe(s));
+
+dots.forEach(d => {
+  d.addEventListener('click', e => {
+    e.preventDefault();
+    const idx = parseInt(d.dataset.index);
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur < slides.length - 1) slides[cur + 1].scrollIntoView({ behavior: 'smooth' });
+  }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    e.preventDefault();
+    const cur = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top <= 120 && r.bottom > 120;
+    });
+    if (cur > 0) slides[cur - 1].scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+updateActive(0);
+</script>
+</body>
+</html>
